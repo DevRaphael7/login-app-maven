@@ -1,0 +1,16 @@
+body {
+  background-color: red;
+}
+
+.card-login.bg {
+  background-color: rgba(69, 105, 189, 0.8);
+}
+.card-login.shadow {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+}
+.card-login.size {
+  min-width: 200px;
+  height: 400px;
+}
+
+/*# sourceMappingURL=style-login.css.map */
