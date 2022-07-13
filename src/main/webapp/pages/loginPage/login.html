@@ -8,15 +8,39 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Página de login</h1>
-
-    <section class="card-login bg shadow size">
-        <form>
-            <div>
-                <label>Nome: </label>
-                <input type="text">
-            </div>
-        </form>
+    <section class="flex-center full-h">
+        <div class="card-login bg shadow size padd-10p relative">
+            <h2>Login</h2>
+            <form class="form" formLogin>
+                <div class="fields-form fields-form-txt mag-top-10p">
+                    <label>Nome: </label>
+                    <input 
+                        type="text" 
+                        class="padd-5p" 
+                        placeholder="Seu nome" 
+                        usuario>
+                </div>
+                <div class="fields-form fields-form-txt mag-top-10p">
+                    <label>Senha: </label>
+                    <input 
+                        type="text" 
+                        class="padd-5p" 
+                        placeholder="Sua senha" 
+                        senha
+                    >
+                </div>
+                <div class="mag-top-10p flex-center">
+                    <button type="submit" class="btn-primary bg cl padd-5p full-w" id="btn-login">
+                        Login
+                    </button>
+                </div>
+            </form>
+            <span class="full-h flex-end"></span>
+            <button class="absolute end padd-5p btn-secondary bg cl">
+                Cadastrar
+            </button>
+        </div>
     </section>
+    <script src="./scripts/login-page.script.js"></script>
 </body>
 </html>

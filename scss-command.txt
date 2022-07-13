@@ -1,0 +1,1 @@
+sass --watch src\main\webapp\pages\loginPage\styles\style-login.scss src\main\webapp\pages\loginPage\styles\style-login.css

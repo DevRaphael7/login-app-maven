@@ -1,0 +1,12 @@
+@mixin flex($position) {
+    display: flex;
+    justify-content: $position;
+}
+
+@mixin align-center {
+    align-items: center;
+}
+
+@mixin background-page {
+    background-color: #1a1b3a;
+}

@@ -1,0 +1,33 @@
+$primary-btn-bg: #337ab7;
+
+.btn-primary{
+    border: 1px solid #fff;
+
+    &.bg{
+        background-color: $primary-btn-bg;
+    }
+
+    &.cl{
+        color: #fff;
+    }
+
+    &:hover{
+        cursor: pointer;
+        background-color: #ffdd50;
+    }
+}
+
+.btn-secondary{
+    &.bg{
+        background-color: #5c7bc8;
+    }
+
+    &.cl{
+        color: #f4f4f4;
+    }
+
+    &:hover{
+        cursor: pointer;
+        background-color: #ffdd50;
+    }
+}

@@ -1,11 +1,15 @@
+@import '../../../styles/mixins.scss';
+@import '../../../styles/global-styles.scss';
+
 body{
-    background-color: red;
+    @include background-page;
 }
 
 .card-login{
+    border-radius: 10px;
 
     &.bg{
-        background-color: rgba(69, 105, 189, 0.8);
+        background-color: rgba(241, 241, 241);
     }
 
     &.shadow{
@@ -13,7 +17,7 @@ body{
     }
 
     &.size{
-        min-width: 200px;
-        height: 400px;
+        min-width: 250px;
+        height: 300px;
     }
 }

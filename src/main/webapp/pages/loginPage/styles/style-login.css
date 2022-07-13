@@ -1,16 +1,119 @@
-body {
-  background-color: red;
+.btn-primary {
+  border: 1px solid #fff;
+}
+.btn-primary.bg {
+  background-color: #337ab7;
+}
+.btn-primary.cl {
+  color: #fff;
+}
+.btn-primary:hover {
+  cursor: pointer;
+  background-color: #ffdd50;
 }
 
+.btn-secondary.bg {
+  background-color: #5c7bc8;
+}
+.btn-secondary.cl {
+  color: #f4f4f4;
+}
+.btn-secondary:hover {
+  cursor: pointer;
+  background-color: #ffdd50;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: monospace;
+}
+
+html, body, .container {
+  height: 100%;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-end {
+  display: flex;
+  justify-content: flex-center;
+  align-items: center;
+}
+
+.full-w {
+  width: 100%;
+}
+.full-h {
+  height: 100%;
+}
+
+.padd-5p {
+  padding: 5px;
+}
+.padd-10p {
+  padding: 10px;
+}
+.padd-20p {
+  padding: 20px;
+}
+.padd-40p {
+  padding: 40px;
+}
+
+.form .fields-form {
+  display: grid;
+}
+.form .fields-form-txt {
+  font-size: 12px;
+  font-weight: 200;
+  color: #bdbdbd;
+}
+.form .fields-form input {
+  outline: none;
+  border: 1px solid #bdbdbd;
+}
+.form .fields-form input::placeholder {
+  color: #bdbdbd;
+}
+
+.mag-top-10p {
+  margin-top: 10px;
+}
+.mag-top-40p {
+  margin-top: 40px;
+}
+
+.relative {
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
+}
+.absolute.end {
+  bottom: 10px;
+}
+
+body {
+  background-color: #1a1b3a;
+}
+
+.card-login {
+  border-radius: 10px;
+}
 .card-login.bg {
-  background-color: rgba(69, 105, 189, 0.8);
+  background-color: rgb(241, 241, 241);
 }
 .card-login.shadow {
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
 }
 .card-login.size {
-  min-width: 200px;
-  height: 400px;
+  min-width: 250px;
+  height: 300px;
 }
 
 /*# sourceMappingURL=style-login.css.map */

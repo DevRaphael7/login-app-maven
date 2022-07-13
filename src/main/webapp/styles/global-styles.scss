@@ -1,0 +1,96 @@
+@import './mixins.scss';
+
+@import './btns-styles.scss';
+
+$form-text-border-color: #bdbdbd;
+
+*{
+    box-sizing: border-box;
+    font-family: monospace;
+}
+
+html, body, .container {
+    height: 100%;
+}
+
+.flex-center{
+    @include flex(center);
+    @include align-center();
+}
+
+.flex-end{
+    @include flex(flex-center);
+    @include align-center()
+}
+
+.full{
+    &-w{
+        width: 100%;
+    }
+
+    &-h{
+        height: 100%;
+    }
+}
+
+.padd{
+    &-5p{
+        padding: 5px;
+    }
+
+    &-10p{
+        padding: 10px;
+    }
+
+    &-20p{
+        padding: 20px;
+    }
+
+    &-40p{
+        padding: 40px;
+    }
+}
+
+.form{
+    .fields-form{
+        &-txt{
+            font-size: 12px;
+            font-weight: 200;
+            color: $form-text-border-color;
+        }
+
+        display: grid;
+
+        input{
+            outline: none;
+            border: 1px solid $form-text-border-color;
+
+            &::placeholder{
+                color: $form-text-border-color;
+            }
+        }
+    }
+}
+
+.mag{
+    &-top{
+        &-10p{
+            margin-top: 10px;
+        }
+
+        &-40p{
+            margin-top: 40px;
+        }
+    }
+}
+
+.relative{
+    position: relative;
+}
+
+.absolute{
+    position: absolute;
+    &.end{
+        bottom: 10px;
+    }
+}
