@@ -1,3 +1,5 @@
+<%@page language="java" contentType="text/html" pageEncoding="UTF-8" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +11,7 @@
 </head>
 <body>
     <section class="flex-center full-h">
-        <div class="card-login bg shadow size padd-10p relative">
+        <div class="card-login bg shadow size padd-10p relative" card-login>
             <h2>Login</h2>
             <form class="form" formLogin>
                 <div class="fields-form fields-form-txt mag-top-10p">
@@ -40,6 +42,9 @@
             <button class="absolute end padd-5p btn-secondary bg cl">
                 Cadastrar
             </button>
+        </div>
+        <div class="hide" loading> 
+            <%@include file="../../components/spinner-component/spinner.jsp" %>
         </div>
     </section>
     <script type="module" src="./scripts/login-page.script.js"></script>

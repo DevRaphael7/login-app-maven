@@ -54,7 +54,7 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("<body>\r\n");
       out.write("    ");
 
-        response.sendRedirect("http://localhost:9090/projeto_faculdade/pages/loginPage/login.html");
+        response.sendRedirect("http://localhost:9090/projeto_faculdade/pages/loginPage/login.jsp");
     
       out.write("\r\n");
       out.write("</body>\r\n");

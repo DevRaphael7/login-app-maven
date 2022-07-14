@@ -10,7 +10,7 @@
 </head>
 <body>
     <%
-        response.sendRedirect("http://localhost:9090/projeto_faculdade/pages/loginPage/login.html");
+        response.sendRedirect("http://localhost:9090/projeto_faculdade/pages/loginPage/login.jsp");
     %>
 </body>
 </html>

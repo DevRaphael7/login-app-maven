@@ -38,6 +38,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var btnLogin = document.getElementById("btn-login");
 var usuarioHtmlInput = document.querySelector("[usuario]");
 var senhaHtmlInput = document.querySelector("[senha]");
+var spinnerContainer = document.querySelector('[spinnerContainer]');
 var LoginPage = /** @class */ (function () {
     function LoginPage() {
         var _this = this;
@@ -75,6 +76,7 @@ var LoginPage = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
+                        this.exibirLoading(true);
                         this.setJsonMimeTypeInOptionsRequest({
                             name: this.nome,
                             password: this.senha
@@ -88,22 +90,33 @@ var LoginPage = /** @class */ (function () {
                         return [4 /*yield*/, response.json()];
                     case 3:
                         data = _a.sent();
-                        console.log(data);
                         if (!response.ok) {
                             this.setErrorMessage(data.message);
                             return [2 /*return*/];
                         }
                         console.log(data);
+                        this.exibirLoading(false);
                         return [3 /*break*/, 5];
                     case 4:
                         ex_1 = _a.sent();
                         console.log(ex_1);
                         this.setErrorMessage('Ops ocorreu um erro na requisição');
+                        this.exibirLoading(false);
                         return [3 /*break*/, 5];
                     case 5: return [2 /*return*/];
                 }
             });
         });
+    };
+    LoginPage.prototype.exibirLoading = function (enable) {
+        if (enable) {
+            document.querySelector('[loading]').classList.remove('hide');
+            document.querySelector('[card-login]').classList.add('hide');
+        }
+        else {
+            document.querySelector('[loading]').classList.add('hide');
+            document.querySelector('[card-login]').classList.remove('hide');
+        }
     };
     LoginPage.prototype.setErrorMessage = function (message) {
         this.errorMessage.textContent = message;

@@ -1,8 +1,10 @@
-import { fetch } from 'cross-fetch';
+// import { fetch } from 'cross-fetch';
 
 const btnLogin = document.getElementById("btn-login") as HTMLElement;
 const usuarioHtmlInput = document.querySelector("[usuario]") as HTMLElement;
 const senhaHtmlInput = document.querySelector("[senha]") as HTMLElement;
+
+const spinnerContainer = document.querySelector('[spinnerContainer]') as HTMLElement;
 
 interface User {
     name: string;
@@ -56,6 +58,7 @@ class LoginPage{
     }
 
     public async requestLoginApi(): Promise<void> {
+        this.exibirLoading(true);
         this.setJsonMimeTypeInOptionsRequest({
             name: this.nome,
             password: this.senha
@@ -68,11 +71,22 @@ class LoginPage{
                 this.setErrorMessage((data as ErrorResponse).message)
                 return;
             }
-
             console.log(data)
+            this.exibirLoading(false);
         } catch(ex) {
             console.log(ex)
-            this.setErrorMessage('Ops ocorreu um erro na requisição')
+            this.setErrorMessage('Ops ocorreu um erro na requisição');
+            this.exibirLoading(false);
+        }
+    }
+
+    public exibirLoading(enable: boolean) {
+        if(enable){
+            (document.querySelector('[loading]') as HTMLElement).classList.remove('hide');
+            (document.querySelector('[card-login]') as HTMLElement).classList.add('hide');
+        } else {
+            (document.querySelector('[loading]') as HTMLElement).classList.add('hide');
+            (document.querySelector('[card-login]') as HTMLElement).classList.remove('hide');
         }
     }
 
