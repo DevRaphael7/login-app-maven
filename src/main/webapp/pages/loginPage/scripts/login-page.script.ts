@@ -11,10 +11,58 @@ interface User {
     password: string;
 }
 
+interface TokenResponse {
+    currentDate: string;
+    dateTimeExpire: string;
+    token: string;
+}
+
 interface ErrorResponse {
     code: number;
     message: string;
     operation: boolean;
+}
+
+class TokenService {
+
+    private token: string;
+    private endPoint = false ? 'https://login-register-app-node.herokuapp.com/api/login' : 'http://localhost:9000/api/login';
+    private optionsRequest: any;
+
+    constructor() {
+        this.token = "";
+    }
+
+    private setJsonMimeTypeInOptionsRequest() {
+        this.optionsRequest = {
+            method: 'POST',
+            body: JSON.stringify({
+                user: "@raphael",
+                password: "123"
+            }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        };
+    }
+
+    public async requestTokenApi() {
+        try{
+            this.setJsonMimeTypeInOptionsRequest();
+            const response = await fetch(this.endPoint, this.optionsRequest);
+            const data = await response.json();
+            if(response.ok){
+                const token = (data as TokenResponse).token;
+                window.localStorage.setItem('token', token);
+                return true;
+            } else {
+                return false;
+            }
+        } catch(ex) {
+            console.log(ex)
+            return false;
+        }
+    }
 }
 
 class LoginPage{
@@ -24,6 +72,9 @@ class LoginPage{
     private formHtml: HTMLElement;
     private optionsRequest: any;
     private errorMessage: HTMLElement;
+    private token: TokenService; 
+
+    private urlApi = false ? 'https://login-register-app-node.herokuapp.com/api/loginUser' : 'http://localhost:9000/api/loginUser';
 
     constructor() {
         this.formHtml = document.querySelector("[formLogin]") as HTMLElement;
@@ -32,6 +83,7 @@ class LoginPage{
         this.optionsRequest = {};
         this.formHtml.addEventListener('submit', e => e.preventDefault());
         this.errorMessage = document.querySelector('[errorMessage]') as HTMLElement;
+        this.token = new TokenService();
     }
 
     public getNome = () => this.nome;
@@ -64,18 +116,26 @@ class LoginPage{
             password: this.senha
         })
 
+        const checkGetToken = await this.token.requestTokenApi();
+
         try{
-            const response = await fetch('https://login-register-app-node.herokuapp.com/api/loginUser', this.optionsRequest)
+
+            if(!checkGetToken) throw Error('Error na  requisição do token');
+
+            console.log(window.localStorage.getItem('token'))
+            
+            const response = await fetch(this.urlApi, this.optionsRequest)
             const data = await response.json();
             if(!response.ok){
                 this.setErrorMessage((data as ErrorResponse).message)
+                this.exibirLoading(false);
                 return;
             }
-            console.log(data)
+            console.log(data);
             this.exibirLoading(false);
         } catch(ex) {
             console.log(ex)
-            this.setErrorMessage('Ops ocorreu um erro na requisição');
+            this.setErrorMessage('Ops ocorreu um erro ' + ex);
             this.exibirLoading(false);
         }
     }
