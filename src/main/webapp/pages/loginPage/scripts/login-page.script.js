@@ -38,7 +38,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var btnLogin = document.getElementById("btn-login");
 var usuarioHtmlInput = document.querySelector("[usuario]");
 var senhaHtmlInput = document.querySelector("[senha]");
-var spinnerContainer = document.querySelector('[spinnerContainer]');
 var TokenService = /** @class */ (function () {
     function TokenService() {
         this.endPoint = false ? 'https://login-register-app-node.herokuapp.com/api/login' : 'http://localhost:9000/api/login';
@@ -55,6 +54,9 @@ var TokenService = /** @class */ (function () {
                 'Content-Type': 'application/json'
             }
         };
+    };
+    TokenService.prototype.getToken = function () {
+        return this.token;
     };
     TokenService.prototype.requestTokenApi = function () {
         return __awaiter(this, void 0, void 0, function () {
@@ -73,6 +75,7 @@ var TokenService = /** @class */ (function () {
                         if (response.ok) {
                             token = data.token;
                             window.localStorage.setItem('token', token);
+                            this.token = token;
                             return [2 /*return*/, true];
                         }
                         else {
@@ -107,19 +110,20 @@ var LoginPage = /** @class */ (function () {
     LoginPage.prototype.setNome = function (nome) {
         if (!nome)
             return;
-        this.nome += nome.replace("Key", "");
+        this.nome += nome;
     };
     LoginPage.prototype.setSenha = function (senha) {
         if (!senha)
             return;
-        this.senha += senha.replace("Key", "");
+        this.senha += senha;
     };
     LoginPage.prototype.setJsonMimeTypeInOptionsRequest = function (user) {
         this.optionsRequest = {
             method: 'POST',
             body: JSON.stringify(user),
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + this.token.getToken()
             }
         };
     };
@@ -130,19 +134,18 @@ var LoginPage = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         this.exibirLoading(true);
+                        return [4 /*yield*/, this.token.requestTokenApi()];
+                    case 1:
+                        checkGetToken = _a.sent();
                         this.setJsonMimeTypeInOptionsRequest({
                             name: this.nome,
                             password: this.senha
                         });
-                        return [4 /*yield*/, this.token.requestTokenApi()];
-                    case 1:
-                        checkGetToken = _a.sent();
                         _a.label = 2;
                     case 2:
                         _a.trys.push([2, 5, , 6]);
                         if (!checkGetToken)
                             throw Error('Error na  requisição do token');
-                        console.log(window.localStorage.getItem('token'));
                         return [4 /*yield*/, fetch(this.urlApi, this.optionsRequest)];
                     case 3:
                         response = _a.sent();
@@ -184,8 +187,16 @@ var LoginPage = /** @class */ (function () {
     return LoginPage;
 }());
 var loginPage = new LoginPage();
-usuarioHtmlInput.addEventListener('keydown', function (e) { return loginPage.setNome(e.code); });
-senhaHtmlInput.addEventListener('keydown', function (e) { return loginPage.setSenha(e.code); });
+usuarioHtmlInput.addEventListener('keydown', function (e) {
+    if (Number(e.keyCode) > 28 && Number(e.keyCode) < 112) {
+        loginPage.setNome(e.key);
+    }
+});
+senhaHtmlInput.addEventListener('keydown', function (e) {
+    if (Number(e.keyCode) > 28 && Number(e.keyCode) < 112) {
+        loginPage.setSenha(e.key);
+    }
+});
 btnLogin.addEventListener('click', function () {
     loginPage.requestLoginApi();
 });

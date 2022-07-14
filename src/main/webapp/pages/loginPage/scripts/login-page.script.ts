@@ -4,8 +4,6 @@ const btnLogin = document.getElementById("btn-login") as HTMLElement;
 const usuarioHtmlInput = document.querySelector("[usuario]") as HTMLElement;
 const senhaHtmlInput = document.querySelector("[senha]") as HTMLElement;
 
-const spinnerContainer = document.querySelector('[spinnerContainer]') as HTMLElement;
-
 interface User {
     name: string;
     password: string;
@@ -46,6 +44,9 @@ class TokenService {
         };
     }
 
+    public getToken(){
+        return this.token;
+    }
     public async requestTokenApi() {
         try{
             this.setJsonMimeTypeInOptionsRequest();
@@ -54,6 +55,7 @@ class TokenService {
             if(response.ok){
                 const token = (data as TokenResponse).token;
                 window.localStorage.setItem('token', token);
+                this.token = token;
                 return true;
             } else {
                 return false;
@@ -91,12 +93,12 @@ class LoginPage{
 
     public setNome(nome: string) {
         if(!nome) return;
-        this.nome += nome.replace("Key", "");
+        this.nome += nome
     }
 
     public setSenha(senha: string){
         if(!senha) return;
-        this.senha += senha.replace("Key", "");
+        this.senha += senha
     }
 
     private setJsonMimeTypeInOptionsRequest(user: User) {
@@ -104,25 +106,24 @@ class LoginPage{
             method: 'POST',
             body: JSON.stringify(user),
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + this.token.getToken()
             }
         };
     }
 
     public async requestLoginApi(): Promise<void> {
         this.exibirLoading(true);
+        
+        const checkGetToken = await this.token.requestTokenApi();
+
         this.setJsonMimeTypeInOptionsRequest({
             name: this.nome,
             password: this.senha
         })
 
-        const checkGetToken = await this.token.requestTokenApi();
-
         try{
-
             if(!checkGetToken) throw Error('Error na  requisição do token');
-
-            console.log(window.localStorage.getItem('token'))
             
             const response = await fetch(this.urlApi, this.optionsRequest)
             const data = await response.json();
@@ -157,8 +158,16 @@ class LoginPage{
 
 const loginPage = new LoginPage();
 
-usuarioHtmlInput.addEventListener('keydown', e => loginPage.setNome(e.code));
-senhaHtmlInput.addEventListener('keydown', e => loginPage.setSenha(e.code));
+usuarioHtmlInput.addEventListener('keydown', e => {
+    if(Number(e.keyCode) > 28 && Number(e.keyCode) < 112) {
+        loginPage.setNome(e.key);
+    }
+});
+senhaHtmlInput.addEventListener('keydown', e => {
+    if(Number(e.keyCode) > 28 && Number(e.keyCode) < 112) {
+        loginPage.setSenha(e.key)
+    }
+});
 
 btnLogin.addEventListener('click', () => {
     loginPage.requestLoginApi();
