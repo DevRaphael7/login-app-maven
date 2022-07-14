@@ -21,3 +21,8 @@ body{
         height: 300px;
     }
 }
+
+.error-message{
+    @include errorColor;
+}
+
