@@ -36,11 +36,14 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 var btnLogin = document.getElementById("btn-login");
+var btnRegister = document.getElementById("btn-cadastro");
 var usuarioHtmlInput = document.querySelector("[usuario]");
 var senhaHtmlInput = document.querySelector("[senha]");
+var goToCadastrar = document.querySelector("[btn-goToCadastrar]");
 var TokenService = /** @class */ (function () {
     function TokenService() {
-        this.endPoint = false ? 'https://login-register-app-node.herokuapp.com/api/login' : 'http://localhost:9000/api/login';
+        this.endPoint = false ?
+            'https://login-register-app-node.herokuapp.com/api/login' : 'http://localhost:9000/api/login';
         this.token = "";
     }
     TokenService.prototype.setJsonMimeTypeInOptionsRequest = function () {
@@ -60,7 +63,6 @@ var TokenService = /** @class */ (function () {
     };
     TokenService.prototype.getTokenInLocalStorage = function () {
         var token = window.localStorage.getItem('token');
-        console.log(token);
         if (token) {
             this.token = token;
             return true;
@@ -106,12 +108,29 @@ var TokenService = /** @class */ (function () {
     };
     return TokenService;
 }());
+var SpinnerComponent = /** @class */ (function () {
+    function SpinnerComponent() {
+    }
+    SpinnerComponent.prototype.exibirLoading = function (enable, callback) {
+        if (enable) {
+            document.querySelector('[loading]').classList.remove('hide');
+            callback();
+        }
+        else {
+            document.querySelector('[loading]').classList.add('hide');
+            callback();
+        }
+    };
+    return SpinnerComponent;
+}());
 var LoginPage = /** @class */ (function () {
     function LoginPage() {
         var _this = this;
-        this.urlApi = false ? 'https://login-register-app-node.herokuapp.com/api/loginUser' : 'http://localhost:9000/api/loginUser';
+        this.urlApi = false ?
+            'https://login-register-app-node.herokuapp.com/api/loginUser' : 'http://localhost:9000/api/loginUser';
         this.getNome = function () { return _this.nome; };
         this.getSenha = function () { return _this.senha; };
+        this.getFormHtml = function () { return _this.formHtml; };
         this.formHtml = document.querySelector("[formLogin]");
         this.nome = "";
         this.senha = "";
@@ -120,6 +139,7 @@ var LoginPage = /** @class */ (function () {
         this.errorMessage = document.querySelector('[errorMessage]');
         this.sucessMessage = document.querySelector('[sucessMessage]');
         this.token = new TokenService();
+        this.spinner = new SpinnerComponent();
     }
     LoginPage.prototype.setNome = function (nome) {
         if (!nome)
@@ -149,7 +169,9 @@ var LoginPage = /** @class */ (function () {
                 switch (_b.label) {
                     case 0:
                         _a = ["", ""], this.errorMessage.innerHTML = _a[0], this.sucessMessage.innerHTML = _a[1];
-                        this.exibirLoading(true);
+                        this.spinner.exibirLoading(true, function () {
+                            document.querySelector('[card-login]').classList.add('hide');
+                        });
                         return [4 /*yield*/, this.token.requestTokenApi()];
                     case 1:
                         _b.sent();
@@ -170,45 +192,137 @@ var LoginPage = /** @class */ (function () {
                         return [4 /*yield*/, this.token.requestTokenApi()];
                     case 5:
                         _b.sent();
-                        this.exibirLoading(false);
+                        this.spinner.exibirLoading(false, function () {
+                            document.querySelector('[card-login]').classList.remove('hide');
+                        });
                         this.requestLoginApi();
                         return [2 /*return*/];
                     case 6:
                         if (!response.ok) {
                             this.setErrorMessage(data.message);
-                            this.exibirLoading(false);
+                            this.spinner.exibirLoading(false, function () {
+                                document.querySelector('[card-login]').classList.remove('hide');
+                            });
                             return [2 /*return*/];
                         }
                         this.sucessMessage.innerHTML = data.message;
-                        this.exibirLoading(false);
+                        this.spinner.exibirLoading(false, function () {
+                            document.querySelector('[card-login]').classList.remove('hide');
+                        });
                         return [3 /*break*/, 8];
                     case 7:
                         ex_2 = _b.sent();
                         console.log(ex_2);
                         this.setErrorMessage('Ops ocorreu um erro ' + ex_2);
-                        this.exibirLoading(false);
+                        this.spinner.exibirLoading(false, function () {
+                            document.querySelector('[card-login]').classList.remove('hide');
+                        });
                         return [3 /*break*/, 8];
                     case 8: return [2 /*return*/];
                 }
             });
         });
     };
-    LoginPage.prototype.exibirLoading = function (enable) {
-        if (enable) {
-            document.querySelector('[loading]').classList.remove('hide');
-            document.querySelector('[card-login]').classList.add('hide');
-        }
-        else {
-            document.querySelector('[loading]').classList.add('hide');
-            document.querySelector('[card-login]').classList.remove('hide');
-        }
-    };
     LoginPage.prototype.setErrorMessage = function (message) {
         this.errorMessage.textContent = message;
     };
     return LoginPage;
 }());
+var RegisterPage = /** @class */ (function () {
+    function RegisterPage() {
+        var _this = this;
+        this.endPoint = false ?
+            'https://login-register-app-node.herokuapp.com/api/register' : 'http://localhost:9000/api/register';
+        this.getFormHtml = function () { return _this.formHtml; };
+        this.nome = "";
+        this.password = "";
+        this.age = "";
+        this.email = "";
+        this.errorMessage =
+            this.formHtml = document.querySelector("[formRegister]");
+        this.formHtml.addEventListener('submit', function (e) { return e.preventDefault(); });
+        this.spinner = new SpinnerComponent();
+        this.errorMessage = document.querySelector('[errorMessageRegister]');
+        console.log(this.errorMessage);
+        this.sucessMessage = document.querySelector('[sucessMessageRegister]');
+        this.token = new TokenService();
+    }
+    RegisterPage.prototype.showCadastrar = function () {
+        var _this = this;
+        this.spinner.exibirLoading(true, function () {
+            return document.querySelector('[card-login]').classList.add('hide');
+        });
+        setTimeout(function () {
+            _this.spinner.exibirLoading(false, function () {
+                return document.querySelector("[card-register]").classList.remove("hide");
+            });
+        }, 2000);
+    };
+    RegisterPage.prototype.setJsonMimeTypeInOptionsRequest = function () {
+        this.optionsRequest = {
+            method: 'POST',
+            body: JSON.stringify({
+                name: this.nome,
+                password: this.password,
+                age: this.age,
+                email: this.email
+            }),
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + this.token.getToken()
+            }
+        };
+    };
+    RegisterPage.prototype.requestApi = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var response, data, ex_3;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        this.spinner.exibirLoading(true, function () {
+                            document.querySelector('[card-register]').classList.add('hide');
+                        });
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 5, , 6]);
+                        return [4 /*yield*/, this.token.requestTokenApi()];
+                    case 2:
+                        _a.sent();
+                        this.setJsonMimeTypeInOptionsRequest();
+                        return [4 /*yield*/, fetch(this.endPoint, this.optionsRequest)];
+                    case 3:
+                        response = _a.sent();
+                        return [4 /*yield*/, response.json()];
+                    case 4:
+                        data = _a.sent();
+                        if (response.ok) {
+                            this.sucessMessage.innerHTML = data.message;
+                            this.spinner.exibirLoading(false, function () {
+                                document.querySelector('[card-register]').classList.remove('hide');
+                            });
+                            return [2 /*return*/];
+                        }
+                        this.errorMessage.innerHTML = data.message;
+                        this.spinner.exibirLoading(false, function () {
+                            document.querySelector('[card-register]').classList.remove('hide');
+                        });
+                        return [3 /*break*/, 6];
+                    case 5:
+                        ex_3 = _a.sent();
+                        console.log(ex_3);
+                        this.spinner.exibirLoading(false, function () {
+                            document.querySelector('[card-register]').classList.remove('hide');
+                        });
+                        return [3 /*break*/, 6];
+                    case 6: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    return RegisterPage;
+}());
 var loginPage = new LoginPage();
+var registerPage = new RegisterPage();
 usuarioHtmlInput.addEventListener('keydown', function (e) {
     if (Number(e.keyCode) > 28 && Number(e.keyCode) < 112) {
         loginPage.setNome(e.key);
@@ -221,4 +335,10 @@ senhaHtmlInput.addEventListener('keydown', function (e) {
 });
 btnLogin.addEventListener('click', function () {
     loginPage.requestLoginApi();
+});
+btnRegister.addEventListener('click', function () {
+    registerPage.requestApi();
+});
+goToCadastrar.addEventListener('click', function () {
+    registerPage.showCadastrar();
 });
