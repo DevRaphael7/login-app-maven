@@ -40,6 +40,19 @@ var btnRegister = document.getElementById("btn-cadastro");
 var usuarioHtmlInput = document.querySelector("[usuario]");
 var senhaHtmlInput = document.querySelector("[senha]");
 var goToCadastrar = document.querySelector("[btn-goToCadastrar]");
+var PopupComponent = /** @class */ (function () {
+    function PopupComponent() {
+        this.popUpHtml = document.querySelector("[popup-component]");
+        console.log(this.popUpHtml);
+    }
+    PopupComponent.prototype.exibirPopUp = function (value) {
+        if (value)
+            this.popUpHtml.classList.add("is-visible");
+        else
+            this.popUpHtml.classList.remove("is-visible");
+    };
+    return PopupComponent;
+}());
 var TokenService = /** @class */ (function () {
     function TokenService() {
         this.endPoint = false ?
@@ -140,6 +153,7 @@ var LoginPage = /** @class */ (function () {
         this.sucessMessage = document.querySelector('[sucessMessage]');
         this.token = new TokenService();
         this.spinner = new SpinnerComponent();
+        this.popup = new PopupComponent();
     }
     LoginPage.prototype.setNome = function (nome) {
         if (!nome)
@@ -199,6 +213,7 @@ var LoginPage = /** @class */ (function () {
                         return [2 /*return*/];
                     case 6:
                         if (!response.ok) {
+                            this.popup.exibirPopUp(true);
                             this.setErrorMessage(data.message);
                             this.spinner.exibirLoading(false, function () {
                                 document.querySelector('[card-login]').classList.remove('hide');

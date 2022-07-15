@@ -103,6 +103,7 @@
         <div class="hide" loading> 
             <%@include file="../../components/spinner-component/spinner.jsp" %>
         </div>
+        <%@include file="../../components/popup/popup.jsp" %>
     </section>
     <script type="module" src="./scripts/login-page.script.js"></script>
 </body>

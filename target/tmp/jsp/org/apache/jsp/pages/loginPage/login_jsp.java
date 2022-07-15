@@ -12,8 +12,9 @@ public final class login_jsp extends org.apache.jasper.runtime.HttpJspBase
   private static java.util.List<String> _jspx_dependants;
 
   static {
-    _jspx_dependants = new java.util.ArrayList<String>(1);
+    _jspx_dependants = new java.util.ArrayList<String>(2);
     _jspx_dependants.add("/pages/loginPage/../../components/spinner-component/spinner.jsp");
+    _jspx_dependants.add("/pages/loginPage/../../components/popup/popup.jsp");
   }
 
   private org.glassfish.jsp.api.ResourceInjector _jspx_resourceInjector;
@@ -171,6 +172,36 @@ public final class login_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("</html>");
       out.write("\r\n");
       out.write("        </div>\r\n");
+      out.write("        ");
+      out.write("\r\n");
+      out.write("\r\n");
+      out.write("<!DOCTYPE html>\r\n");
+      out.write("<html lang=\"en\">\r\n");
+      out.write("<head>\r\n");
+      out.write("    <meta charset=\"UTF-8\">\r\n");
+      out.write("    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\r\n");
+      out.write("    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\r\n");
+      out.write("    <link rel=\"stylesheet\" href=\"");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${pageContext.request.contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+      out.write("/components/popup/style.css\">\r\n");
+      out.write("    <title>Popup Component</title>\r\n");
+      out.write("</head>\r\n");
+      out.write("<body>  \r\n");
+      out.write("    <div class=\"cd-popup\" role=\"alert\" popup-component>\r\n");
+      out.write("        <div class=\"cd-popup-container\">\r\n");
+      out.write("            <p>Are you sure you want to delete this element?</p>\r\n");
+      out.write("            <ul class=\"cd-buttons\">\r\n");
+      out.write("                <li okBtn><a href=\"#0\">OK</a></li>\r\n");
+      out.write("            </ul>\r\n");
+      out.write("            <a href=\"#0\" class=\"cd-popup-close img-replace\">Close</a>\r\n");
+      out.write("        </div>\r\n");
+      out.write("    </div>\r\n");
+      out.write("    <script type=\"module\" src=\"");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${pageContext.request.contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+      out.write("/components/popup/script.js\"></script>\r\n");
+      out.write("</body>\r\n");
+      out.write("</html>");
+      out.write("\r\n");
       out.write("    </section>\r\n");
       out.write("    <script type=\"module\" src=\"./scripts/login-page.script.js\"></script>\r\n");
       out.write("</body>\r\n");

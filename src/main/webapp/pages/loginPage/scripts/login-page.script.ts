@@ -26,6 +26,22 @@ interface responseApi {
     operation: boolean;
 }
 
+class PopupComponent {
+
+    private popUpHtml = document.querySelector("[popup-component]") as HTMLElement;
+
+    constructor() {
+        console.log(this.popUpHtml)
+    }
+
+    public exibirPopUp(value: boolean) {
+        if(value)
+            this.popUpHtml.classList.add("is-visible");
+        else
+            this.popUpHtml.classList.remove("is-visible");
+    }
+}
+
 class TokenService {
 
     private token: string;
@@ -109,6 +125,7 @@ class LoginPage {
     private sucessMessage: HTMLElement;
     private token: TokenService;
     private spinner: SpinnerComponent
+    private popup: PopupComponent
 
     private urlApi = false ? 
         'https://login-register-app-node.herokuapp.com/api/loginUser' : 'http://localhost:9000/api/loginUser';
@@ -123,6 +140,7 @@ class LoginPage {
         this.sucessMessage = document.querySelector('[sucessMessage]') as HTMLElement;
         this.token = new TokenService();
         this.spinner = new SpinnerComponent();
+        this.popup = new PopupComponent();
     }
 
     public getNome = () => this.nome;
@@ -177,6 +195,7 @@ class LoginPage {
             }
 
             if(!response.ok){
+                this.popup.exibirPopUp(true)
                 this.setErrorMessage((data as responseApi).message)
                 this.spinner.exibirLoading(false, () => {
                     (document.querySelector('[card-login]') as HTMLElement).classList.remove('hide');
