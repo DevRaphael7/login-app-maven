@@ -58,35 +58,48 @@ var TokenService = /** @class */ (function () {
     TokenService.prototype.getToken = function () {
         return this.token;
     };
+    TokenService.prototype.getTokenInLocalStorage = function () {
+        var token = window.localStorage.getItem('token');
+        console.log(token);
+        if (token) {
+            this.token = token;
+            return true;
+        }
+        return false;
+    };
     TokenService.prototype.requestTokenApi = function () {
         return __awaiter(this, void 0, void 0, function () {
             var response, data, token, ex_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        _a.trys.push([0, 3, , 4]);
+                        if (this.getTokenInLocalStorage())
+                            return [2 /*return*/];
+                        console.log('Gerando novo token...');
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 4, , 5]);
                         this.setJsonMimeTypeInOptionsRequest();
                         return [4 /*yield*/, fetch(this.endPoint, this.optionsRequest)];
-                    case 1:
+                    case 2:
                         response = _a.sent();
                         return [4 /*yield*/, response.json()];
-                    case 2:
+                    case 3:
                         data = _a.sent();
                         if (response.ok) {
                             token = data.token;
                             window.localStorage.setItem('token', token);
                             this.token = token;
-                            return [2 /*return*/, true];
+                            return [2 /*return*/];
                         }
-                        else {
-                            return [2 /*return*/, false];
-                        }
-                        return [3 /*break*/, 4];
-                    case 3:
+                        else
+                            return [2 /*return*/];
+                        return [3 /*break*/, 5];
+                    case 4:
                         ex_1 = _a.sent();
                         console.log(ex_1);
-                        return [2 /*return*/, false];
-                    case 4: return [2 /*return*/];
+                        return [2 /*return*/];
+                    case 5: return [2 /*return*/];
                 }
             });
         });
@@ -105,6 +118,7 @@ var LoginPage = /** @class */ (function () {
         this.optionsRequest = {};
         this.formHtml.addEventListener('submit', function (e) { return e.preventDefault(); });
         this.errorMessage = document.querySelector('[errorMessage]');
+        this.sucessMessage = document.querySelector('[sucessMessage]');
         this.token = new TokenService();
     }
     LoginPage.prototype.setNome = function (nome) {
@@ -129,44 +143,52 @@ var LoginPage = /** @class */ (function () {
     };
     LoginPage.prototype.requestLoginApi = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var checkGetToken, response, data, ex_2;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            var response, data, ex_2;
+            var _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0:
+                        _a = ["", ""], this.errorMessage.innerHTML = _a[0], this.sucessMessage.innerHTML = _a[1];
                         this.exibirLoading(true);
                         return [4 /*yield*/, this.token.requestTokenApi()];
                     case 1:
-                        checkGetToken = _a.sent();
+                        _b.sent();
                         this.setJsonMimeTypeInOptionsRequest({
                             name: this.nome,
                             password: this.senha
                         });
-                        _a.label = 2;
+                        _b.label = 2;
                     case 2:
-                        _a.trys.push([2, 5, , 6]);
-                        if (!checkGetToken)
-                            throw Error('Error na  requisição do token');
+                        _b.trys.push([2, 7, , 8]);
                         return [4 /*yield*/, fetch(this.urlApi, this.optionsRequest)];
                     case 3:
-                        response = _a.sent();
+                        response = _b.sent();
                         return [4 /*yield*/, response.json()];
                     case 4:
-                        data = _a.sent();
+                        data = _b.sent();
+                        if (!(response.status == 401)) return [3 /*break*/, 6];
+                        return [4 /*yield*/, this.token.requestTokenApi()];
+                    case 5:
+                        _b.sent();
+                        this.exibirLoading(false);
+                        this.requestLoginApi();
+                        return [2 /*return*/];
+                    case 6:
                         if (!response.ok) {
                             this.setErrorMessage(data.message);
                             this.exibirLoading(false);
                             return [2 /*return*/];
                         }
-                        console.log(data);
+                        this.sucessMessage.innerHTML = data.message;
                         this.exibirLoading(false);
-                        return [3 /*break*/, 6];
-                    case 5:
-                        ex_2 = _a.sent();
+                        return [3 /*break*/, 8];
+                    case 7:
+                        ex_2 = _b.sent();
                         console.log(ex_2);
                         this.setErrorMessage('Ops ocorreu um erro ' + ex_2);
                         this.exibirLoading(false);
-                        return [3 /*break*/, 6];
-                    case 6: return [2 /*return*/];
+                        return [3 /*break*/, 8];
+                    case 8: return [2 /*return*/];
                 }
             });
         });

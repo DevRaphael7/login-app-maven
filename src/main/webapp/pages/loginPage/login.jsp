@@ -38,8 +38,9 @@
                 </div>
             </form>
             <p errorMessage class="mag-top-10p error-message"></p>
+            <p sucessMessage class="mag-top-10p success-message"></p>
             <span class="full-h flex-end"></span>
-            <button class="absolute end padd-5p btn-secondary bg cl">
+            <button class="absolute end padd-5p btn-primary bg cl">
                 Cadastrar
             </button>
         </div>

@@ -86,8 +86,9 @@ public final class login_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                </div>\r\n");
       out.write("            </form>\r\n");
       out.write("            <p errorMessage class=\"mag-top-10p error-message\"></p>\r\n");
+      out.write("            <p sucessMessage class=\"mag-top-10p success-message\"></p>\r\n");
       out.write("            <span class=\"full-h flex-end\"></span>\r\n");
-      out.write("            <button class=\"absolute end padd-5p btn-secondary bg cl\">\r\n");
+      out.write("            <button class=\"absolute end padd-5p btn-primary bg cl\">\r\n");
       out.write("                Cadastrar\r\n");
       out.write("            </button>\r\n");
       out.write("        </div>\r\n");

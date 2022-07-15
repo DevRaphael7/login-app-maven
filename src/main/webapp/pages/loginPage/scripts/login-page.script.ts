@@ -1,4 +1,4 @@
-// import { fetch } from 'cross-fetch';
+import { fetch } from 'cross-fetch';
 
 const btnLogin = document.getElementById("btn-login") as HTMLElement;
 const usuarioHtmlInput = document.querySelector("[usuario]") as HTMLElement;
@@ -15,7 +15,7 @@ interface TokenResponse {
     token: string;
 }
 
-interface ErrorResponse {
+interface responseApi {
     code: number;
     message: string;
     operation: boolean;
@@ -47,33 +47,46 @@ class TokenService {
     public getToken(){
         return this.token;
     }
-    public async requestTokenApi() {
+
+    private getTokenInLocalStorage(): boolean {
+        const token = window.localStorage.getItem('token');
+        console.log(token)
+        if(token) {
+            this.token = token;
+            return true;
+        }
+        return false;
+    }
+
+    public async requestTokenApi(): Promise<void> {
+        if(this.getTokenInLocalStorage()) return;
+        console.log('Gerando novo token...')
         try{
             this.setJsonMimeTypeInOptionsRequest();
             const response = await fetch(this.endPoint, this.optionsRequest);
             const data = await response.json();
+
             if(response.ok){
                 const token = (data as TokenResponse).token;
                 window.localStorage.setItem('token', token);
                 this.token = token;
-                return true;
-            } else {
-                return false;
-            }
+                return;
+            } else return;
         } catch(ex) {
             console.log(ex)
-            return false;
+            return;
         }
     }
 }
 
-class LoginPage{
+class LoginPage {
 
     private nome: string;
     private senha: string;
     private formHtml: HTMLElement;
     private optionsRequest: any;
     private errorMessage: HTMLElement;
+    private sucessMessage: HTMLElement;
     private token: TokenService; 
 
     private urlApi = false ? 'https://login-register-app-node.herokuapp.com/api/loginUser' : 'http://localhost:9000/api/loginUser';
@@ -85,6 +98,7 @@ class LoginPage{
         this.optionsRequest = {};
         this.formHtml.addEventListener('submit', e => e.preventDefault());
         this.errorMessage = document.querySelector('[errorMessage]') as HTMLElement;
+        this.sucessMessage = document.querySelector('[sucessMessage]') as HTMLElement;
         this.token = new TokenService();
     }
 
@@ -113,26 +127,33 @@ class LoginPage{
     }
 
     public async requestLoginApi(): Promise<void> {
+        [this.errorMessage.innerHTML, this.sucessMessage.innerHTML] = ["", ""];
         this.exibirLoading(true);
         
-        const checkGetToken = await this.token.requestTokenApi();
-
+        await this.token.requestTokenApi();
         this.setJsonMimeTypeInOptionsRequest({
             name: this.nome,
             password: this.senha
         })
 
-        try{
-            if(!checkGetToken) throw Error('Error na  requisição do token');
-            
-            const response = await fetch(this.urlApi, this.optionsRequest)
+        try{    
+            const response = await fetch(this.urlApi, this.optionsRequest);
             const data = await response.json();
+
+            if(response.status == 401){
+                await this.token.requestTokenApi();
+                this.exibirLoading(false)
+                this.requestLoginApi();
+                return;
+            }
+
             if(!response.ok){
-                this.setErrorMessage((data as ErrorResponse).message)
+                this.setErrorMessage((data as responseApi).message)
                 this.exibirLoading(false);
                 return;
             }
-            console.log(data);
+            
+            this.sucessMessage.innerHTML = (data as responseApi).message;
             this.exibirLoading(false);
         } catch(ex) {
             console.log(ex)
