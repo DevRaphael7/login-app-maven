@@ -189,11 +189,11 @@ public final class login_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("<body>  \r\n");
       out.write("    <div class=\"cd-popup\" role=\"alert\" popup-component>\r\n");
       out.write("        <div class=\"cd-popup-container\">\r\n");
-      out.write("            <p>Are you sure you want to delete this element?</p>\r\n");
+      out.write("            <p messagePopUp></p>\r\n");
       out.write("            <ul class=\"cd-buttons\">\r\n");
       out.write("                <li okBtn><a href=\"#0\">OK</a></li>\r\n");
       out.write("            </ul>\r\n");
-      out.write("            <a href=\"#0\" class=\"cd-popup-close img-replace\">Close</a>\r\n");
+      out.write("            <p class=\"cd-popup-close\">Close</p>\r\n");
       out.write("        </div>\r\n");
       out.write("    </div>\r\n");
       out.write("    <script type=\"module\" src=\"");

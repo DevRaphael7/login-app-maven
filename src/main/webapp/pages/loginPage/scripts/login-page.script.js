@@ -82,13 +82,14 @@ var TokenService = /** @class */ (function () {
         }
         return false;
     };
-    TokenService.prototype.requestTokenApi = function () {
+    TokenService.prototype.requestTokenApi = function (validatedToken) {
+        if (validatedToken === void 0) { validatedToken = true; }
         return __awaiter(this, void 0, void 0, function () {
             var response, data, token, ex_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        if (this.getTokenInLocalStorage())
+                        if (this.getTokenInLocalStorage() && validatedToken)
                             return [2 /*return*/];
                         console.log('Gerando novo token...');
                         _a.label = 1;
@@ -203,7 +204,7 @@ var LoginPage = /** @class */ (function () {
                     case 4:
                         data = _b.sent();
                         if (!(response.status == 401)) return [3 /*break*/, 6];
-                        return [4 /*yield*/, this.token.requestTokenApi()];
+                        return [4 /*yield*/, this.token.requestTokenApi(false)];
                     case 5:
                         _b.sent();
                         this.spinner.exibirLoading(false, function () {

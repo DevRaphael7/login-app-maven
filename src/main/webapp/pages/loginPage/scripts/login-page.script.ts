@@ -79,8 +79,8 @@ class TokenService {
         return false;
     }
 
-    public async requestTokenApi(): Promise<void> {
-        if(this.getTokenInLocalStorage()) return;
+    public async requestTokenApi(validatedToken: boolean = true): Promise<void> {
+        if(this.getTokenInLocalStorage() && validatedToken) return;
         console.log('Gerando novo token...');
         try{
             this.setJsonMimeTypeInOptionsRequest();
@@ -185,14 +185,14 @@ class LoginPage {
             const response = await fetch(this.urlApi, this.optionsRequest);
             const data = await response.json();
 
-            if(response.status == 401){
-                await this.token.requestTokenApi();
-                this.spinner.exibirLoading(false, () => {
-                    (document.querySelector('[card-login]') as HTMLElement).classList.remove('hide');
-                })
-                this.requestLoginApi();
-                return;
-            }
+            // if(response.status == 401){
+            //     await this.token.requestTokenApi(false);
+            //     this.spinner.exibirLoading(false, () => {
+            //         (document.querySelector('[card-login]') as HTMLElement).classList.remove('hide');
+            //     })
+            //     this.requestLoginApi();
+            //     return;
+            // }
 
             if(!response.ok){
                 this.popup.exibirPopUp(true)

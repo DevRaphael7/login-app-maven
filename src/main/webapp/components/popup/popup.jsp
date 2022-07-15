@@ -16,7 +16,7 @@
             <ul class="cd-buttons">
                 <li okBtn><a href="#0">OK</a></li>
             </ul>
-            <h1 class="cd-popup-close">Close</h1>
+            <p class="cd-popup-close">Close</p>
         </div>
     </div>
     <script type="module" src="${pageContext.request.contextPath}/components/popup/script.js"></script>
