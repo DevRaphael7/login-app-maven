@@ -29,7 +29,8 @@ export class TokenService {
     }
 
     private getTokenInLocalStorage(): boolean {
-        const token = window.localStorage.getItem('token');
+        const token = sessionStorage.getItem('token');
+        console.log(token)
         if(token) {
             this.token = token;
             return true;
@@ -39,6 +40,7 @@ export class TokenService {
 
     public async requestTokenApi(validatedToken: boolean = true): Promise<void> {
         if(this.getTokenInLocalStorage() && validatedToken) return;
+        console.log(sessionStorage.getItem('token'))
         console.log('Gerando novo token...');
         try{
             this.setJsonMimeTypeInOptionsRequest();
@@ -47,12 +49,12 @@ export class TokenService {
 
             if(response.ok){
                 const token = (data as TokenResponse).token;
-                window.localStorage.setItem('token', token);
+                sessionStorage.setItem('token', token);
                 this.token = token;
                 return;
             } else return;
         } catch(ex) {
-            console.log(ex)
+            console.log(ex);
             return;
         }
     }

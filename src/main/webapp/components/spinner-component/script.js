@@ -3,6 +3,7 @@ exports.__esModule = true;
 exports.SpinnerComponent = void 0;
 var SpinnerComponent = /** @class */ (function () {
     function SpinnerComponent() {
+        console.log(document.querySelector('[loading]'));
     }
     SpinnerComponent.prototype.exibirLoading = function (enable, callback) {
         if (enable) {

@@ -1,6 +1,8 @@
 export class SpinnerComponent {
 
-    constructor() { }
+    constructor() { 
+        console.log((document.querySelector('[loading]') as HTMLElement))
+    }
 
     public exibirLoading(enable: boolean, callback: () => any) {
         if(enable){

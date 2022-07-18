@@ -59,7 +59,8 @@ var TokenService = /** @class */ (function () {
         return this.token;
     };
     TokenService.prototype.getTokenInLocalStorage = function () {
-        var token = window.localStorage.getItem('token');
+        var token = sessionStorage.getItem('token');
+        console.log(token);
         if (token) {
             this.token = token;
             return true;
@@ -75,6 +76,7 @@ var TokenService = /** @class */ (function () {
                     case 0:
                         if (this.getTokenInLocalStorage() && validatedToken)
                             return [2 /*return*/];
+                        console.log(sessionStorage.getItem('token'));
                         console.log('Gerando novo token...');
                         _a.label = 1;
                     case 1:
@@ -88,7 +90,7 @@ var TokenService = /** @class */ (function () {
                         data = _a.sent();
                         if (response.ok) {
                             token = data.token;
-                            window.localStorage.setItem('token', token);
+                            sessionStorage.setItem('token', token);
                             this.token = token;
                             return [2 /*return*/];
                         }

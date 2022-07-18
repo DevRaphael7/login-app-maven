@@ -7,6 +7,11 @@ import { TokenService } from '../../../services/token.service';
 const btnRegister = document.getElementById("btn-cadastro") as HTMLElement;
 const goToCadastrar = document.querySelector("[btn-goToCadastrar]") as HTMLElement;
 
+const usuarioInput = document.querySelector("[usuarioCadastro]") as HTMLElement;
+const emailInput = document.querySelector("[emailCadastro]") as HTMLElement;
+const senhaInput = document.querySelector("[senhaCadastro]") as HTMLElement;
+const idadeCadastro = document.querySelector("[idadeCadastro]") as HTMLElement;
+
 class RegisterPage {
 
     private nome: string;
@@ -96,6 +101,38 @@ class RegisterPage {
             })
         }
     }
+
+    public setNome(nome: string): void {
+        this.nome += nome;
+    }
+
+    public setEmail(email: string){
+        this.email += email;
+    }
+
+    public setSenha(senha: string){
+        this.password += senha;
+    }
+
+    public setAge(age: string) {
+        this.age += age;
+    }
+
+    public getNome(): string{
+        return this.nome;
+    }
+
+    public getEmail() {
+        return this.email;
+    }
+
+    public getSenha() {
+        return this.password;
+    }
+
+    public getAge() {
+        return this.age
+    }
 }
 
 const registerPage = new RegisterPage();
@@ -107,3 +144,9 @@ btnRegister.addEventListener('click', () => {
 goToCadastrar.addEventListener('click', () => {
     registerPage.showCadastrar();
 })
+
+usuarioInput.addEventListener('keydown', (e: any) => registerPage.setNome(e.target.value));
+emailInput.addEventListener('keydown', (e: any) => registerPage.setEmail(e.target.value));
+senhaInput.addEventListener('keydown', (e: any) => registerPage.setSenha(e.target.value));
+idadeCadastro.addEventListener('keydown', (e: any) => registerPage.setAge(e.target.value));
+

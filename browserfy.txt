@@ -1,0 +1,6 @@
+Login page js ====>
+browserify src\main\webapp\pages\loginPage\scripts\login-page.script.js -o src\main\webapp\pages\loginPage\scripts\login-page-browserify.script.js
+Register page js ===>
+browserify src\main\webapp\pages\loginPage\scripts\register-script.js -o src\main\webapp\pages\loginPage\scripts\register-script-browserify.js
+Login and Register page ===>
+browserify src\main\webapp\pages\loginPage\scripts\register-script.js -o src\main\webapp\pages\loginPage\scripts\register-script-browserify.js && browserify src\main\webapp\pages\loginPage\scripts\login-page.script.js -o src\main\webapp\pages\loginPage\scripts\login-page-browserify.script.js

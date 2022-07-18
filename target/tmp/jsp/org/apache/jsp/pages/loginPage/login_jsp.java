@@ -145,8 +145,8 @@ public final class login_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("            <p errorMessageRegister class=\"mag-top-10p error-message\"></p>\r\n");
       out.write("            <p sucessMessageRegister class=\"mag-top-10p success-message\"></p>\r\n");
       out.write("            <span class=\"full-h flex-end\"></span>\r\n");
-      out.write("            <button class=\"absolute end padd-5p btn-primary bg cl\">\r\n");
-      out.write("                Login\r\n");
+      out.write("            <button class=\"absolute end padd-5p btn-primary bg cl\" btn-goToLogin>\r\n");
+      out.write("                Já é cadastrado?\r\n");
       out.write("            </button>\r\n");
       out.write("        </div>\r\n");
       out.write("\r\n");
@@ -204,8 +204,8 @@ public final class login_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("</html>");
       out.write("\r\n");
       out.write("    </section>\r\n");
-      out.write("    <script type=\"module\" src=\"./scripts/login-page.script.js\"></script>\r\n");
-      out.write("    <script type=\"module\" src=\"./scripts/register-script.js\"></script>\r\n");
+      out.write("    <script type=\"module\" src=\"./scripts/login-page-browserify.script.js\"></script>\r\n");
+      out.write("    <script type=\"module\" src=\"./scripts/register-script-browserify.js\"></script>\r\n");
       out.write("</body>\r\n");
       out.write("</html>");
     } catch (Throwable t) {

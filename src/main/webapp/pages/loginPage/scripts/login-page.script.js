@@ -36,12 +36,14 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
+var cross_fetch_1 = require("cross-fetch");
 var script_1 = require("../../../components/popup/script");
 var token_service_1 = require("../../../services/token.service");
 var script_2 = require("../../../components/spinner-component/script");
 var btnLogin = document.getElementById("btn-login");
 var usuarioHtmlInput = document.querySelector("[usuario]");
 var senhaHtmlInput = document.querySelector("[senha]");
+var goToLoginBtn = document.querySelector("[btn-goToLogin]");
 var LoginPage = /** @class */ (function () {
     function LoginPage() {
         var _this = this;
@@ -64,12 +66,12 @@ var LoginPage = /** @class */ (function () {
     LoginPage.prototype.setNome = function (nome) {
         if (!nome)
             return;
-        this.nome += nome;
+        this.nome = nome;
     };
     LoginPage.prototype.setSenha = function (senha) {
         if (!senha)
             return;
-        this.senha += senha;
+        this.senha = senha;
     };
     LoginPage.prototype.setJsonMimeTypeInOptionsRequest = function (user) {
         this.optionsRequest = {
@@ -83,10 +85,10 @@ var LoginPage = /** @class */ (function () {
     };
     LoginPage.prototype.exibirLoading = function (value) {
         if (value) {
-            document.querySelector('[card-login]').classList.add('hide');
+            this.spinner.exibirLoading(true, function () { return document.querySelector('[card-login]').classList.add('hide'); });
         }
         else {
-            document.querySelector('[card-login]').classList.remove('hide');
+            this.spinner.exibirLoading(false, function () { return document.querySelector('[card-login]').classList.remove('hide'); });
         }
     };
     LoginPage.prototype.requestLoginApi = function () {
@@ -109,7 +111,7 @@ var LoginPage = /** @class */ (function () {
                         _b.label = 2;
                     case 2:
                         _b.trys.push([2, 7, , 8]);
-                        return [4 /*yield*/, fetch(this.urlApi, this.optionsRequest)];
+                        return [4 /*yield*/, (0, cross_fetch_1.fetch)(this.urlApi, this.optionsRequest)];
                     case 3:
                         response = _b.sent();
                         return [4 /*yield*/, response.json()];
@@ -150,19 +152,25 @@ var LoginPage = /** @class */ (function () {
     LoginPage.prototype.setErrorMessage = function (message) {
         this.errorMessage.textContent = message;
     };
+    LoginPage.prototype.showLogin = function () {
+        var _this = this;
+        this.spinner.exibirLoading(true, function () {
+            return document.querySelector('[card-register]').classList.add('hide');
+        });
+        setTimeout(function () {
+            _this.spinner.exibirLoading(false, function () {
+                return document.querySelector("[card-login]").classList.remove("hide");
+            });
+        }, 2000);
+    };
     return LoginPage;
 }());
 var loginPage = new LoginPage();
-usuarioHtmlInput.addEventListener('keydown', function (e) {
-    if (Number(e.keyCode) > 28 && Number(e.keyCode) < 112) {
-        loginPage.setNome(e.key);
-    }
-});
-senhaHtmlInput.addEventListener('keydown', function (e) {
-    if (Number(e.keyCode) > 28 && Number(e.keyCode) < 112) {
-        loginPage.setSenha(e.key);
-    }
-});
+usuarioHtmlInput.addEventListener('keydown', function (e) { return loginPage.setNome(e.target.value); });
+senhaHtmlInput.addEventListener('keydown', function (e) { return loginPage.setSenha(e.target.value); });
 btnLogin.addEventListener('click', function () {
     loginPage.requestLoginApi();
+});
+goToLoginBtn.addEventListener('click', function () {
+    loginPage.showLogin();
 });

@@ -96,8 +96,8 @@
             <p errorMessageRegister class="mag-top-10p error-message"></p>
             <p sucessMessageRegister class="mag-top-10p success-message"></p>
             <span class="full-h flex-end"></span>
-            <button class="absolute end padd-5p btn-primary bg cl">
-                Login
+            <button class="absolute end padd-5p btn-primary bg cl" btn-goToLogin>
+                Já é cadastrado?
             </button>
         </div>
 
@@ -106,7 +106,7 @@
         </div>
         <%@include file="../../components/popup/popup.jsp" %>
     </section>
-    <script type="module" src="./scripts/login-page.script.js"></script>
-    <script type="module" src="./scripts/register-script.js"></script>
+    <script type="module" src="./scripts/login-page-browserify.script.js"></script>
+    <script type="module" src="./scripts/register-script-browserify.js"></script>
 </body>
 </html>

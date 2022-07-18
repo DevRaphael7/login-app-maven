@@ -1,4 +1,4 @@
-// import { fetch } from 'cross-fetch';
+import { fetch } from 'cross-fetch';
 import { User } from '../../../models/user.model';
 import { ResponseApi } from '../../../models/response-api.model';
 import { PopupComponent } from '../../../components/popup/script';
@@ -8,6 +8,7 @@ import { SpinnerComponent } from '../../../components/spinner-component/script';
 const btnLogin = document.getElementById("btn-login") as HTMLElement;
 const usuarioHtmlInput = document.querySelector("[usuario]") as HTMLElement;
 const senhaHtmlInput = document.querySelector("[senha]") as HTMLElement;
+const goToLoginBtn = document.querySelector("[btn-goToLogin]") as HTMLElement;
 
 class LoginPage {
 
@@ -43,12 +44,12 @@ class LoginPage {
 
     public setNome(nome: string) {
         if(!nome) return;
-        this.nome += nome
+        this.nome = nome
     }
 
     public setSenha(senha: string){
         if(!senha) return;
-        this.senha += senha
+        this.senha = senha
     }
 
     private setJsonMimeTypeInOptionsRequest(user: User) {
@@ -64,9 +65,10 @@ class LoginPage {
 
     private exibirLoading(value: boolean) {
         if(value){
-            (document.querySelector('[card-login]') as HTMLElement).classList.add('hide');
+            this.spinner.exibirLoading(true, () => (document.querySelector('[card-login]') as HTMLElement).classList.add('hide'))
+            
         } else {
-            (document.querySelector('[card-login]') as HTMLElement).classList.remove('hide');
+            this.spinner.exibirLoading(false, () => (document.querySelector('[card-login]') as HTMLElement).classList.remove('hide'));
         }
     }
 
@@ -110,22 +112,26 @@ class LoginPage {
     private setErrorMessage(message: string) {
         this.errorMessage.textContent = message;
     }
+
+    public showLogin() {
+        this.spinner.exibirLoading(true, () => 
+        (document.querySelector('[card-register]') as HTMLElement).classList.add('hide'))
+        setTimeout(() => {
+            this.spinner.exibirLoading(false , () => 
+            (document.querySelector("[card-login]") as HTMLElement).classList.remove("hide"));
+        }, 2000)
+    }
 }
 
 const loginPage = new LoginPage();
 
-usuarioHtmlInput.addEventListener('keydown', e => {
-    if(Number(e.keyCode) > 28 && Number(e.keyCode) < 112) {
-        loginPage.setNome(e.key);
-    }
-});
-
-senhaHtmlInput.addEventListener('keydown', e => {
-    if(Number(e.keyCode) > 28 && Number(e.keyCode) < 112) {
-        loginPage.setSenha(e.key)
-    }
-});
+usuarioHtmlInput.addEventListener('keydown', (e: any) => loginPage.setNome(e.target.value));
+senhaHtmlInput.addEventListener('keydown', (e: any) => loginPage.setSenha(e.target.value));
 
 btnLogin.addEventListener('click', () => {
     loginPage.requestLoginApi();
+})
+
+goToLoginBtn.addEventListener('click', () => {
+    loginPage.showLogin();
 })
