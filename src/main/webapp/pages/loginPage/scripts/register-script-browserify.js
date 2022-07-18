@@ -1,6 +1,38 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 "use strict";
 exports.__esModule = true;
+exports.PopupComponent = void 0;
+var okBtn = document.querySelector("[okBtn]");
+var closeBtn = document.querySelector("[closeBtn]");
+var PopupComponent = /** @class */ (function () {
+    function PopupComponent() {
+        this.popUpHtml = document.querySelector("[popup-component]");
+        this.messagePopUp = document.querySelector("[messagePopUp]");
+        this.messagePopUp = document.querySelector('[messagePopUp]');
+    }
+    PopupComponent.prototype.exibirPopUp = function (value) {
+        if (value)
+            this.popUpHtml.classList.add("is-visible");
+        else
+            this.popUpHtml.classList.remove("is-visible");
+    };
+    PopupComponent.prototype.setMessagePopUp = function (message) {
+        this.messagePopUp.textContent = message;
+    };
+    return PopupComponent;
+}());
+exports.PopupComponent = PopupComponent;
+var popUp = new PopupComponent();
+okBtn.addEventListener('click', function () {
+    popUp.exibirPopUp(false);
+});
+closeBtn.addEventListener('click', function () {
+    popUp.exibirPopUp(false);
+});
+
+},{}],2:[function(require,module,exports){
+"use strict";
+exports.__esModule = true;
 exports.SpinnerComponent = void 0;
 var SpinnerComponent = /** @class */ (function () {
     function SpinnerComponent() {
@@ -20,7 +52,7 @@ var SpinnerComponent = /** @class */ (function () {
 }());
 exports.SpinnerComponent = SpinnerComponent;
 
-},{}],2:[function(require,module,exports){
+},{}],3:[function(require,module,exports){
 "use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -60,7 +92,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 // import { fetch } from 'cross-fetch';
-var script_1 = require("../../../components/spinner-component/script");
+var script_1 = require("../../../components/popup/script");
+var script_2 = require("../../../components/spinner-component/script");
 var token_service_1 = require("../../../services/token.service");
 var btnRegister = document.getElementById("btn-cadastro");
 var goToCadastrar = document.querySelector("[btn-goToCadastrar]");
@@ -81,11 +114,12 @@ var RegisterPage = /** @class */ (function () {
         this.errorMessage =
             this.formHtml = document.querySelector("[formRegister]");
         this.formHtml.addEventListener('submit', function (e) { return e.preventDefault(); });
-        this.spinner = new script_1.SpinnerComponent();
+        this.spinner = new script_2.SpinnerComponent();
         this.errorMessage = document.querySelector('[errorMessageRegister]');
         console.log(this.errorMessage);
         this.sucessMessage = document.querySelector('[sucessMessageRegister]');
         this.token = new token_service_1.TokenService();
+        this.popup = new script_1.PopupComponent();
     }
     RegisterPage.prototype.showCadastrar = function () {
         var _this = this;
@@ -116,25 +150,27 @@ var RegisterPage = /** @class */ (function () {
     RegisterPage.prototype.requestApi = function () {
         return __awaiter(this, void 0, void 0, function () {
             var response, data, ex_1;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            var _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0:
+                        _a = ["", ""], this.errorMessage.innerHTML = _a[0], this.sucessMessage.innerHTML = _a[1];
                         this.spinner.exibirLoading(true, function () {
-                            document.querySelector('[card-register]').classList.add('hide');
+                            return document.querySelector('[card-register]').classList.add('hide');
                         });
-                        _a.label = 1;
+                        _b.label = 1;
                     case 1:
-                        _a.trys.push([1, 5, , 6]);
+                        _b.trys.push([1, 5, , 6]);
                         return [4 /*yield*/, this.token.requestTokenApi()];
                     case 2:
-                        _a.sent();
+                        _b.sent();
                         this.setJsonMimeTypeInOptionsRequest();
                         return [4 /*yield*/, fetch(this.endPoint, this.optionsRequest)];
                     case 3:
-                        response = _a.sent();
+                        response = _b.sent();
                         return [4 /*yield*/, response.json()];
                     case 4:
-                        data = _a.sent();
+                        data = _b.sent();
                         if (response.ok) {
                             this.sucessMessage.innerHTML = data.message;
                             this.spinner.exibirLoading(false, function () {
@@ -143,12 +179,14 @@ var RegisterPage = /** @class */ (function () {
                             return [2 /*return*/];
                         }
                         this.errorMessage.innerHTML = data.message;
+                        this.popup.setMessagePopUp(data.message);
+                        this.popup.exibirPopUp(true);
                         this.spinner.exibirLoading(false, function () {
                             document.querySelector('[card-register]').classList.remove('hide');
                         });
                         return [3 /*break*/, 6];
                     case 5:
-                        ex_1 = _a.sent();
+                        ex_1 = _b.sent();
                         console.log(ex_1);
                         this.spinner.exibirLoading(false, function () {
                             document.querySelector('[card-register]').classList.remove('hide');
@@ -160,16 +198,16 @@ var RegisterPage = /** @class */ (function () {
         });
     };
     RegisterPage.prototype.setNome = function (nome) {
-        this.nome += nome;
+        this.nome = nome;
     };
     RegisterPage.prototype.setEmail = function (email) {
-        this.email += email;
+        this.email = email;
     };
     RegisterPage.prototype.setSenha = function (senha) {
-        this.password += senha;
+        this.password = senha;
     };
     RegisterPage.prototype.setAge = function (age) {
-        this.age += age;
+        this.age = age;
     };
     RegisterPage.prototype.getNome = function () {
         return this.nome;
@@ -197,7 +235,7 @@ emailInput.addEventListener('keyup', function (e) { return registerPage.setEmail
 senhaInput.addEventListener('keyup', function (e) { return registerPage.setSenha(e.target.value); });
 idadeCadastro.addEventListener('keyup', function (e) { return registerPage.setAge(e.target.value); });
 
-},{"../../../components/spinner-component/script":1,"../../../services/token.service":3}],3:[function(require,module,exports){
+},{"../../../components/popup/script":1,"../../../components/spinner-component/script":2,"../../../services/token.service":4}],4:[function(require,module,exports){
 "use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -310,4 +348,4 @@ var TokenService = /** @class */ (function () {
 }());
 exports.TokenService = TokenService;
 
-},{}]},{},[2]);
+},{}]},{},[3]);

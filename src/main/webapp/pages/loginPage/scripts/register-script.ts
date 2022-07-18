@@ -1,4 +1,5 @@
 // import { fetch } from 'cross-fetch';
+import { PopupComponent } from '../../../components/popup/script';
 import { SpinnerComponent } from '../../../components/spinner-component/script';
 import { ResponseApi } from '../../../models/response-api.model';
 import { User } from '../../../models/user.model';
@@ -24,6 +25,7 @@ class RegisterPage {
     private sucessMessage: HTMLElement;
     private optionsRequest: any;
     private token: TokenService;
+    private popup: PopupComponent;
 
     private endPoint = false ? 
         'https://login-register-app-node.herokuapp.com/api/register' : 'http://localhost:9000/api/register';
@@ -41,6 +43,7 @@ class RegisterPage {
         console.log(this.errorMessage)
         this.sucessMessage = document.querySelector('[sucessMessageRegister]') as HTMLElement;
         this.token = new TokenService();
+        this.popup = new PopupComponent();
     }
 
     getFormHtml = () => this.formHtml;
@@ -71,9 +74,9 @@ class RegisterPage {
     }
 
     public async requestApi() {
-        this.spinner.exibirLoading(true, () => {
-            (document.querySelector('[card-register]') as HTMLElement).classList.add('hide')
-        })
+        [this.errorMessage.innerHTML, this.sucessMessage.innerHTML] = ["", ""];
+        this.spinner.exibirLoading(true, () => 
+            (document.querySelector('[card-register]') as HTMLElement).classList.add('hide'))
 
         try{
             await this.token.requestTokenApi();
@@ -91,6 +94,8 @@ class RegisterPage {
             }
 
             this.errorMessage.innerHTML = (data as ResponseApi).message;
+            this.popup.setMessagePopUp((data as ResponseApi).message);
+            this.popup.exibirPopUp(true)
             this.spinner.exibirLoading(false, () => {
                 (document.querySelector('[card-register]') as HTMLElement).classList.remove('hide')
             });
@@ -103,19 +108,19 @@ class RegisterPage {
     }
 
     public setNome(nome: string): void {
-        this.nome += nome;
+        this.nome = nome;
     }
 
     public setEmail(email: string){
-        this.email += email;
+        this.email = email;
     }
 
     public setSenha(senha: string){
-        this.password += senha;
+        this.password = senha;
     }
 
     public setAge(age: string) {
-        this.age += age;
+        this.age = age;
     }
 
     public getNome(): string{

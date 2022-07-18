@@ -32,6 +32,11 @@ html, body, .container {
   height: 100%;
 }
 
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
 .flex-center {
   display: flex;
   justify-content: center;
@@ -120,6 +125,10 @@ body {
 .card-login.size {
   min-width: 250px;
   height: 350px;
+}
+.card-login.size-register {
+  min-width: 250px;
+  height: 400px;
 }
 
 .hide {

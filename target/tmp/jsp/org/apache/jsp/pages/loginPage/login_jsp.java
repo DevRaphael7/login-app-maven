@@ -95,7 +95,7 @@ public final class login_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("            </button>\r\n");
       out.write("        </div>\r\n");
       out.write("\r\n");
-      out.write("        <div class=\"card-login bg shadow size padd-10p relative hide\" card-register>\r\n");
+      out.write("        <div class=\"card-login bg shadow size-register padd-10p relative hide\" card-register>\r\n");
       out.write("            <h2>Cadastrar</h2>\r\n");
       out.write("            <form class=\"form\" formRegister>\r\n");
       out.write("                <div class=\"fields-form fields-form-txt mag-top-10p\">\r\n");
@@ -191,7 +191,7 @@ public final class login_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("    <div class=\"cd-popup flex-center\" role=\"alert\" popup-component>\r\n");
       out.write("        <div class=\"cd-popup-container\">\r\n");
       out.write("            <p class=\"message color size\" messagePopUp></p>\r\n");
-      out.write("            <div class=\"cd-buttons row\">\r\n");
+      out.write("            <div class=\"cd-buttons flex-center\">\r\n");
       out.write("                <button okBtn class=\"big-txt ok-btn size-button\">OK</button>\r\n");
       out.write("            </div>\r\n");
       out.write("            <div class=\"cd-popup-close cd-popup-close-position flex-center\" closeBtn>\r\n");

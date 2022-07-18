@@ -13,7 +13,7 @@
     <div class="cd-popup flex-center" role="alert" popup-component>
         <div class="cd-popup-container">
             <p class="message color size" messagePopUp></p>
-            <div class="cd-buttons row">
+            <div class="cd-buttons flex-center">
                 <button okBtn class="big-txt ok-btn size-button">OK</button>
             </div>
             <div class="cd-popup-close cd-popup-close-position flex-center" closeBtn>

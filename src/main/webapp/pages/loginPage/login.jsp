@@ -46,7 +46,7 @@
             </button>
         </div>
 
-        <div class="card-login bg shadow size padd-10p relative hide" card-register>
+        <div class="card-login bg shadow size-register padd-10p relative hide" card-register>
             <h2>Cadastrar</h2>
             <form class="form" formRegister>
                 <div class="fields-form fields-form-txt mag-top-10p">
