@@ -96,6 +96,8 @@ class LoginPage {
             if(!response.ok){
                 this.popup.exibirPopUp(true)
                 this.setErrorMessage((data as ResponseApi).message)
+                this.popup.setMessagePopUp((data as ResponseApi).message)
+                this.popup.exibirPopUp(true)
                 this.exibirLoading(false);
                 return;
             }
@@ -125,8 +127,8 @@ class LoginPage {
 
 const loginPage = new LoginPage();
 
-usuarioHtmlInput.addEventListener('keydown', (e: any) => loginPage.setNome(e.target.value));
-senhaHtmlInput.addEventListener('keydown', (e: any) => loginPage.setSenha(e.target.value));
+usuarioHtmlInput.addEventListener('keyup', (e: any) => loginPage.setNome(e.target.value));
+senhaHtmlInput.addEventListener('keyup', (e: any) => loginPage.setSenha(e.target.value));
 
 btnLogin.addEventListener('click', () => {
     loginPage.requestLoginApi();

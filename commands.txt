@@ -1,0 +1,4 @@
+compilar login-page =====>
+tsc src\main\webapp\pages\loginPage\scripts\login-page.script.ts &&  browserify src\main\webapp\pages\loginPage\scripts\login-page.script.js -o src\main\webapp\pages\loginPage\scripts\login-page-browserify.script.js
+compilar register-page ====> 
+tsc src\main\webapp\pages\loginPage\scripts\register-script.ts && browserify src\main\webapp\pages\loginPage\scripts\register-script.js -o src\main\webapp\pages\loginPage\scripts\register-script-browserify.js

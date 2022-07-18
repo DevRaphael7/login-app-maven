@@ -1,3 +1,4 @@
+@import url("../../styles/global-styles.scss");
 .cd-popup {
   position: fixed;
   left: 0;
@@ -22,8 +23,9 @@
   position: relative;
   width: 90%;
   max-width: 400px;
+  min-height: 140px;
   margin: 4em auto;
-  background: #FFF;
+  background: rgba(43, 44, 96, 0.8);
   border-radius: 0.25em 0.25em 0.4em 0.4em;
   text-align: center;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
@@ -41,43 +43,54 @@
   -moz-transition-duration: 0.3s;
   transition-duration: 0.3s;
 }
-.cd-popup-container p {
-  padding: 3em 1em;
+.cd-popup-container .message.color {
+  color: #fff;
 }
-.cd-popup-container .cd-buttons li {
-  float: left;
-  width: 50%;
-  list-style: none;
+.cd-popup-container .message.size {
+  font-size: 14px;
+  font-weight: bold;
 }
-.cd-popup-container .cd-buttons li:first-child a {
-  background: #fc7169;
-  border-radius: 0 0 0 0.25em;
+.cd-popup-container .cd-buttons .big-txt {
+  color: #fff;
+  font-weight: bold;
+  font-size: large;
 }
-.cd-popup-container .cd-buttons li:last-child a {
-  background: #b6bece;
-  border-radius: 0 0 0.25em 0;
+.cd-popup-container .cd-buttons .size-button {
+  width: 40px;
+  height: 20px;
 }
-.cd-popup-container .cd-buttons a {
-  display: block;
-  height: 60px;
-  line-height: 60px;
-  text-transform: uppercase;
-  color: #FFF;
-  -webkit-transition: background-color 0.2s;
-  -moz-transition: background-color 0.2s;
-  transition: background-color 0.2s;
+.cd-popup-container .cd-buttons .ok-btn {
+  background-color: rgb(72, 238, 127);
+  border: none;
 }
-.cd-popup-container .cd-buttons:after {
-  content: "";
-  display: table;
-  clear: both;
+.cd-popup-container .cd-buttons .ok-btn:hover {
+  cursor: pointer;
+  background-color: rgb(48, 161, 86);
+  color: #000;
+  transition: 0.5s;
 }
-.cd-popup-container .cd-popup-close {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  width: 30px;
-  height: 30px;
+.cd-popup-close {
+  background-color: #f75047;
+  width: 20px;
+  height: 20px;
+}
+.cd-popup-close-position {
+  position: fixed;
+  top: 0;
+  right: 10px;
+  z-index: 100;
+}
+.cd-popup-close .txt {
+  color: #fff;
+  font-weight: bold;
+  font-size: 6px;
+}
+.cd-popup-close .txt-position {
+  text-align: center;
+}
+.cd-popup-close:hover {
+  background-color: #f70000;
+  cursor: pointer;
 }
 
 .is-visible .cd-popup-container {

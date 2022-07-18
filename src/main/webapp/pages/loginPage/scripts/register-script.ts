@@ -145,8 +145,8 @@ goToCadastrar.addEventListener('click', () => {
     registerPage.showCadastrar();
 })
 
-usuarioInput.addEventListener('keydown', (e: any) => registerPage.setNome(e.target.value));
-emailInput.addEventListener('keydown', (e: any) => registerPage.setEmail(e.target.value));
-senhaInput.addEventListener('keydown', (e: any) => registerPage.setSenha(e.target.value));
-idadeCadastro.addEventListener('keydown', (e: any) => registerPage.setAge(e.target.value));
+usuarioInput.addEventListener('keyup', (e: any) => registerPage.setNome(e.target.value));
+emailInput.addEventListener('keyup', (e: any) => registerPage.setEmail(e.target.value));
+senhaInput.addEventListener('keyup', (e: any) => registerPage.setSenha(e.target.value));
+idadeCadastro.addEventListener('keyup', (e: any) => registerPage.setAge(e.target.value));
 

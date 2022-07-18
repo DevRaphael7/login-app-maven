@@ -10,13 +10,17 @@
     <title>Popup Component</title>
 </head>
 <body>  
-    <div class="cd-popup" role="alert" popup-component>
+    <div class="cd-popup flex-center" role="alert" popup-component>
         <div class="cd-popup-container">
-            <p messagePopUp></p>
-            <ul class="cd-buttons">
-                <li okBtn><a href="#0">OK</a></li>
-            </ul>
-            <p class="cd-popup-close">Close</p>
+            <p class="message color size" messagePopUp></p>
+            <div class="cd-buttons row">
+                <button okBtn class="big-txt ok-btn size-button">OK</button>
+            </div>
+            <div class="cd-popup-close cd-popup-close-position flex-center" closeBtn>
+                <p class="txt">
+                    Close
+                </p>
+            </div>
         </div>
     </div>
     <script type="module" src="${pageContext.request.contextPath}/components/popup/script.js"></script>

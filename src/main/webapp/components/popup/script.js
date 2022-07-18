@@ -2,6 +2,7 @@
 exports.__esModule = true;
 exports.PopupComponent = void 0;
 var okBtn = document.querySelector("[okBtn]");
+var closeBtn = document.querySelector("[closeBtn]");
 var PopupComponent = /** @class */ (function () {
     function PopupComponent() {
         this.popUpHtml = document.querySelector("[popup-component]");
@@ -22,5 +23,8 @@ var PopupComponent = /** @class */ (function () {
 exports.PopupComponent = PopupComponent;
 var popUp = new PopupComponent();
 okBtn.addEventListener('click', function () {
+    popUp.exibirPopUp(false);
+});
+closeBtn.addEventListener('click', function () {
     popUp.exibirPopUp(false);
 });

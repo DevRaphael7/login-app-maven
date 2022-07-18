@@ -1,1 +1,3 @@
 sass --watch src\main\webapp\pages\loginPage\styles\style-login.scss src\main\webapp\pages\loginPage\styles\style-login.css
+POP UP COMPONENT ===> 
+sass --watch src\main\webapp\components\popup\style.scss src\main\webapp\components\popup\style.css

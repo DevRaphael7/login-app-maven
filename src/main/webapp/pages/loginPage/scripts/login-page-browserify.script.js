@@ -559,6 +559,7 @@ module.exports = exports
 exports.__esModule = true;
 exports.PopupComponent = void 0;
 var okBtn = document.querySelector("[okBtn]");
+var closeBtn = document.querySelector("[closeBtn]");
 var PopupComponent = /** @class */ (function () {
     function PopupComponent() {
         this.popUpHtml = document.querySelector("[popup-component]");
@@ -579,6 +580,9 @@ var PopupComponent = /** @class */ (function () {
 exports.PopupComponent = PopupComponent;
 var popUp = new PopupComponent();
 okBtn.addEventListener('click', function () {
+    popUp.exibirPopUp(false);
+});
+closeBtn.addEventListener('click', function () {
     popUp.exibirPopUp(false);
 });
 
@@ -739,6 +743,8 @@ var LoginPage = /** @class */ (function () {
                         if (!response.ok) {
                             this.popup.exibirPopUp(true);
                             this.setErrorMessage(data.message);
+                            this.popup.setMessagePopUp(data.message);
+                            this.popup.exibirPopUp(true);
                             this.exibirLoading(false);
                             return [2 /*return*/];
                         }
@@ -773,8 +779,8 @@ var LoginPage = /** @class */ (function () {
     return LoginPage;
 }());
 var loginPage = new LoginPage();
-usuarioHtmlInput.addEventListener('keydown', function (e) { return loginPage.setNome(e.target.value); });
-senhaHtmlInput.addEventListener('keydown', function (e) { return loginPage.setSenha(e.target.value); });
+usuarioHtmlInput.addEventListener('keyup', function (e) { return loginPage.setNome(e.target.value); });
+senhaHtmlInput.addEventListener('keyup', function (e) { return loginPage.setSenha(e.target.value); });
 btnLogin.addEventListener('click', function () {
     loginPage.requestLoginApi();
 });

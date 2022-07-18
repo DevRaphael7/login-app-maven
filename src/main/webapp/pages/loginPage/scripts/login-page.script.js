@@ -132,6 +132,8 @@ var LoginPage = /** @class */ (function () {
                         if (!response.ok) {
                             this.popup.exibirPopUp(true);
                             this.setErrorMessage(data.message);
+                            this.popup.setMessagePopUp(data.message);
+                            this.popup.exibirPopUp(true);
                             this.exibirLoading(false);
                             return [2 /*return*/];
                         }
@@ -166,8 +168,8 @@ var LoginPage = /** @class */ (function () {
     return LoginPage;
 }());
 var loginPage = new LoginPage();
-usuarioHtmlInput.addEventListener('keydown', function (e) { return loginPage.setNome(e.target.value); });
-senhaHtmlInput.addEventListener('keydown', function (e) { return loginPage.setSenha(e.target.value); });
+usuarioHtmlInput.addEventListener('keyup', function (e) { return loginPage.setNome(e.target.value); });
+senhaHtmlInput.addEventListener('keyup', function (e) { return loginPage.setSenha(e.target.value); });
 btnLogin.addEventListener('click', function () {
     loginPage.requestLoginApi();
 });

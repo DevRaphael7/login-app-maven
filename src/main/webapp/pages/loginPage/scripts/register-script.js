@@ -169,7 +169,7 @@ btnRegister.addEventListener('click', function () {
 goToCadastrar.addEventListener('click', function () {
     registerPage.showCadastrar();
 });
-usuarioInput.addEventListener('keydown', function (e) { return registerPage.setNome(e.target.value); });
-emailInput.addEventListener('keydown', function (e) { return registerPage.setEmail(e.target.value); });
-senhaInput.addEventListener('keydown', function (e) { return registerPage.setSenha(e.target.value); });
-idadeCadastro.addEventListener('keydown', function (e) { return registerPage.setAge(e.target.value); });
+usuarioInput.addEventListener('keyup', function (e) { return registerPage.setNome(e.target.value); });
+emailInput.addEventListener('keyup', function (e) { return registerPage.setEmail(e.target.value); });
+senhaInput.addEventListener('keyup', function (e) { return registerPage.setSenha(e.target.value); });
+idadeCadastro.addEventListener('keyup', function (e) { return registerPage.setAge(e.target.value); });

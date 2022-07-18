@@ -1,6 +1,7 @@
 import { } from 'cross-fetch';
 
 const okBtn = document.querySelector("[okBtn]") as HTMLElement;
+const closeBtn = document.querySelector("[closeBtn]") as HTMLElement;
 
 export class PopupComponent {
 
@@ -26,5 +27,9 @@ export class PopupComponent {
 const popUp: PopupComponent = new PopupComponent();
 
 okBtn.addEventListener('click', () => {
-    popUp.exibirPopUp(false)
+    popUp.exibirPopUp(false);
+})
+
+closeBtn.addEventListener('click', () => {
+    popUp.exibirPopUp(false);
 })
