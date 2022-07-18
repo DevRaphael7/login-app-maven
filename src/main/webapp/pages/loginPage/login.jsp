@@ -10,6 +10,7 @@
     <title>Document</title>
 </head>
 <body>
+    <script>var exports = {};</script>
     <section class="flex-center full-h">
         <div class="card-login bg shadow size padd-10p relative" card-login>
             <h2>Login</h2>
@@ -106,5 +107,6 @@
         <%@include file="../../components/popup/popup.jsp" %>
     </section>
     <script type="module" src="./scripts/login-page.script.js"></script>
+    <script type="module" src="./scripts/register-script.js"></script>
 </body>
 </html>

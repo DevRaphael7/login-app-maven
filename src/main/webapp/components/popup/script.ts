@@ -2,10 +2,10 @@ import { } from 'cross-fetch';
 
 const okBtn = document.querySelector("[okBtn]") as HTMLElement;
 
-class PopupComponent {
+export class PopupComponent {
 
     private popUpHtml = document.querySelector("[popup-component]") as HTMLElement;
-    private messagePopUp: HTMLElement;
+    private messagePopUp: HTMLElement = document.querySelector("[messagePopUp]") as HTMLElement;
 
     constructor() {
         this.messagePopUp = document.querySelector('[messagePopUp]') as HTMLElement;
@@ -16,6 +16,10 @@ class PopupComponent {
             this.popUpHtml.classList.add("is-visible");
         else
             this.popUpHtml.classList.remove("is-visible");
+    }
+
+    public setMessagePopUp(message: string) {
+        this.messagePopUp.textContent = message;
     }
 }
 

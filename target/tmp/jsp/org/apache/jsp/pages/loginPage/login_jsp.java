@@ -59,6 +59,7 @@ public final class login_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("    <title>Document</title>\r\n");
       out.write("</head>\r\n");
       out.write("<body>\r\n");
+      out.write("    <script>var exports = {};</script>\r\n");
       out.write("    <section class=\"flex-center full-h\">\r\n");
       out.write("        <div class=\"card-login bg shadow size padd-10p relative\" card-login>\r\n");
       out.write("            <h2>Login</h2>\r\n");
@@ -204,6 +205,7 @@ public final class login_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\r\n");
       out.write("    </section>\r\n");
       out.write("    <script type=\"module\" src=\"./scripts/login-page.script.js\"></script>\r\n");
+      out.write("    <script type=\"module\" src=\"./scripts/register-script.js\"></script>\r\n");
       out.write("</body>\r\n");
       out.write("</html>");
     } catch (Throwable t) {

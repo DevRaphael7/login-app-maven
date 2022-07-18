@@ -1,4 +1,4 @@
-// import { fetch } from 'cross-fetch';
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -35,108 +35,13 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+exports.__esModule = true;
+var script_1 = require("../../../components/popup/script");
+var token_service_1 = require("../../../services/token.service");
+var script_2 = require("../../../components/spinner-component/script");
 var btnLogin = document.getElementById("btn-login");
-var btnRegister = document.getElementById("btn-cadastro");
 var usuarioHtmlInput = document.querySelector("[usuario]");
 var senhaHtmlInput = document.querySelector("[senha]");
-var goToCadastrar = document.querySelector("[btn-goToCadastrar]");
-var PopupComponent = /** @class */ (function () {
-    function PopupComponent() {
-        this.popUpHtml = document.querySelector("[popup-component]");
-        console.log(this.popUpHtml);
-    }
-    PopupComponent.prototype.exibirPopUp = function (value) {
-        if (value)
-            this.popUpHtml.classList.add("is-visible");
-        else
-            this.popUpHtml.classList.remove("is-visible");
-    };
-    return PopupComponent;
-}());
-var TokenService = /** @class */ (function () {
-    function TokenService() {
-        this.endPoint = false ?
-            'https://login-register-app-node.herokuapp.com/api/login' : 'http://localhost:9000/api/login';
-        this.token = "";
-    }
-    TokenService.prototype.setJsonMimeTypeInOptionsRequest = function () {
-        this.optionsRequest = {
-            method: 'POST',
-            body: JSON.stringify({
-                user: "@raphael",
-                password: "123"
-            }),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        };
-    };
-    TokenService.prototype.getToken = function () {
-        return this.token;
-    };
-    TokenService.prototype.getTokenInLocalStorage = function () {
-        var token = window.localStorage.getItem('token');
-        if (token) {
-            this.token = token;
-            return true;
-        }
-        return false;
-    };
-    TokenService.prototype.requestTokenApi = function (validatedToken) {
-        if (validatedToken === void 0) { validatedToken = true; }
-        return __awaiter(this, void 0, void 0, function () {
-            var response, data, token, ex_1;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        if (this.getTokenInLocalStorage() && validatedToken)
-                            return [2 /*return*/];
-                        console.log('Gerando novo token...');
-                        _a.label = 1;
-                    case 1:
-                        _a.trys.push([1, 4, , 5]);
-                        this.setJsonMimeTypeInOptionsRequest();
-                        return [4 /*yield*/, fetch(this.endPoint, this.optionsRequest)];
-                    case 2:
-                        response = _a.sent();
-                        return [4 /*yield*/, response.json()];
-                    case 3:
-                        data = _a.sent();
-                        if (response.ok) {
-                            token = data.token;
-                            window.localStorage.setItem('token', token);
-                            this.token = token;
-                            return [2 /*return*/];
-                        }
-                        else
-                            return [2 /*return*/];
-                        return [3 /*break*/, 5];
-                    case 4:
-                        ex_1 = _a.sent();
-                        console.log(ex_1);
-                        return [2 /*return*/];
-                    case 5: return [2 /*return*/];
-                }
-            });
-        });
-    };
-    return TokenService;
-}());
-var SpinnerComponent = /** @class */ (function () {
-    function SpinnerComponent() {
-    }
-    SpinnerComponent.prototype.exibirLoading = function (enable, callback) {
-        if (enable) {
-            document.querySelector('[loading]').classList.remove('hide');
-            callback();
-        }
-        else {
-            document.querySelector('[loading]').classList.add('hide');
-            callback();
-        }
-    };
-    return SpinnerComponent;
-}());
 var LoginPage = /** @class */ (function () {
     function LoginPage() {
         var _this = this;
@@ -152,9 +57,9 @@ var LoginPage = /** @class */ (function () {
         this.formHtml.addEventListener('submit', function (e) { return e.preventDefault(); });
         this.errorMessage = document.querySelector('[errorMessage]');
         this.sucessMessage = document.querySelector('[sucessMessage]');
-        this.token = new TokenService();
-        this.spinner = new SpinnerComponent();
-        this.popup = new PopupComponent();
+        this.token = new token_service_1.TokenService();
+        this.spinner = new script_2.SpinnerComponent();
+        this.popup = new script_1.PopupComponent();
     }
     LoginPage.prototype.setNome = function (nome) {
         if (!nome)
@@ -176,17 +81,24 @@ var LoginPage = /** @class */ (function () {
             }
         };
     };
+    LoginPage.prototype.exibirLoading = function (value) {
+        if (value) {
+            document.querySelector('[card-login]').classList.add('hide');
+        }
+        else {
+            document.querySelector('[card-login]').classList.remove('hide');
+        }
+    };
     LoginPage.prototype.requestLoginApi = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var response, data, ex_2;
+            var response, data, ex_1;
             var _a;
+            var _this = this;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
                         _a = ["", ""], this.errorMessage.innerHTML = _a[0], this.sucessMessage.innerHTML = _a[1];
-                        this.spinner.exibirLoading(true, function () {
-                            document.querySelector('[card-login]').classList.add('hide');
-                        });
+                        this.exibirLoading(true);
                         return [4 /*yield*/, this.token.requestTokenApi()];
                     case 1:
                         _b.sent();
@@ -207,32 +119,28 @@ var LoginPage = /** @class */ (function () {
                         return [4 /*yield*/, this.token.requestTokenApi(false)];
                     case 5:
                         _b.sent();
-                        this.spinner.exibirLoading(false, function () {
-                            document.querySelector('[card-login]').classList.remove('hide');
-                        });
-                        this.requestLoginApi();
+                        setTimeout(function () { return __awaiter(_this, void 0, void 0, function () { return __generator(this, function (_a) {
+                            switch (_a.label) {
+                                case 0: return [4 /*yield*/, this.requestLoginApi()];
+                                case 1: return [2 /*return*/, _a.sent()];
+                            }
+                        }); }); }, 1200);
                         return [2 /*return*/];
                     case 6:
                         if (!response.ok) {
                             this.popup.exibirPopUp(true);
                             this.setErrorMessage(data.message);
-                            this.spinner.exibirLoading(false, function () {
-                                document.querySelector('[card-login]').classList.remove('hide');
-                            });
+                            this.exibirLoading(false);
                             return [2 /*return*/];
                         }
                         this.sucessMessage.innerHTML = data.message;
-                        this.spinner.exibirLoading(false, function () {
-                            document.querySelector('[card-login]').classList.remove('hide');
-                        });
+                        this.exibirLoading(false);
                         return [3 /*break*/, 8];
                     case 7:
-                        ex_2 = _b.sent();
-                        console.log(ex_2);
-                        this.setErrorMessage('Ops ocorreu um erro ' + ex_2);
-                        this.spinner.exibirLoading(false, function () {
-                            document.querySelector('[card-login]').classList.remove('hide');
-                        });
+                        ex_1 = _b.sent();
+                        console.log(ex_1);
+                        this.setErrorMessage('Ops ocorreu um erro ' + ex_1);
+                        this.exibirLoading(false);
                         return [3 /*break*/, 8];
                     case 8: return [2 /*return*/];
                 }
@@ -244,101 +152,7 @@ var LoginPage = /** @class */ (function () {
     };
     return LoginPage;
 }());
-var RegisterPage = /** @class */ (function () {
-    function RegisterPage() {
-        var _this = this;
-        this.endPoint = false ?
-            'https://login-register-app-node.herokuapp.com/api/register' : 'http://localhost:9000/api/register';
-        this.getFormHtml = function () { return _this.formHtml; };
-        this.nome = "";
-        this.password = "";
-        this.age = "";
-        this.email = "";
-        this.errorMessage =
-            this.formHtml = document.querySelector("[formRegister]");
-        this.formHtml.addEventListener('submit', function (e) { return e.preventDefault(); });
-        this.spinner = new SpinnerComponent();
-        this.errorMessage = document.querySelector('[errorMessageRegister]');
-        console.log(this.errorMessage);
-        this.sucessMessage = document.querySelector('[sucessMessageRegister]');
-        this.token = new TokenService();
-    }
-    RegisterPage.prototype.showCadastrar = function () {
-        var _this = this;
-        this.spinner.exibirLoading(true, function () {
-            return document.querySelector('[card-login]').classList.add('hide');
-        });
-        setTimeout(function () {
-            _this.spinner.exibirLoading(false, function () {
-                return document.querySelector("[card-register]").classList.remove("hide");
-            });
-        }, 2000);
-    };
-    RegisterPage.prototype.setJsonMimeTypeInOptionsRequest = function () {
-        this.optionsRequest = {
-            method: 'POST',
-            body: JSON.stringify({
-                name: this.nome,
-                password: this.password,
-                age: this.age,
-                email: this.email
-            }),
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + this.token.getToken()
-            }
-        };
-    };
-    RegisterPage.prototype.requestApi = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var response, data, ex_3;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        this.spinner.exibirLoading(true, function () {
-                            document.querySelector('[card-register]').classList.add('hide');
-                        });
-                        _a.label = 1;
-                    case 1:
-                        _a.trys.push([1, 5, , 6]);
-                        return [4 /*yield*/, this.token.requestTokenApi()];
-                    case 2:
-                        _a.sent();
-                        this.setJsonMimeTypeInOptionsRequest();
-                        return [4 /*yield*/, fetch(this.endPoint, this.optionsRequest)];
-                    case 3:
-                        response = _a.sent();
-                        return [4 /*yield*/, response.json()];
-                    case 4:
-                        data = _a.sent();
-                        if (response.ok) {
-                            this.sucessMessage.innerHTML = data.message;
-                            this.spinner.exibirLoading(false, function () {
-                                document.querySelector('[card-register]').classList.remove('hide');
-                            });
-                            return [2 /*return*/];
-                        }
-                        this.errorMessage.innerHTML = data.message;
-                        this.spinner.exibirLoading(false, function () {
-                            document.querySelector('[card-register]').classList.remove('hide');
-                        });
-                        return [3 /*break*/, 6];
-                    case 5:
-                        ex_3 = _a.sent();
-                        console.log(ex_3);
-                        this.spinner.exibirLoading(false, function () {
-                            document.querySelector('[card-register]').classList.remove('hide');
-                        });
-                        return [3 /*break*/, 6];
-                    case 6: return [2 /*return*/];
-                }
-            });
-        });
-    };
-    return RegisterPage;
-}());
 var loginPage = new LoginPage();
-var registerPage = new RegisterPage();
 usuarioHtmlInput.addEventListener('keydown', function (e) {
     if (Number(e.keyCode) > 28 && Number(e.keyCode) < 112) {
         loginPage.setNome(e.key);
@@ -351,10 +165,4 @@ senhaHtmlInput.addEventListener('keydown', function (e) {
 });
 btnLogin.addEventListener('click', function () {
     loginPage.requestLoginApi();
-});
-btnRegister.addEventListener('click', function () {
-    registerPage.requestApi();
-});
-goToCadastrar.addEventListener('click', function () {
-    registerPage.showCadastrar();
 });

@@ -8,6 +8,7 @@
   },
   "keywords": [],
   "author": "",
+  "type": "module",
   "license": "ISC",
   "dependencies": {
     "@types/es6-promise": "^3.3.0",
