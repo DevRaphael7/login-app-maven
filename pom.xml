@@ -52,7 +52,7 @@
           <artifactId>jetty-maven-plugin</artifactId>
           <configuration>
           <processTypes>
-     <web>java $JAVA_OPTS -cp target/classes:target/dependency/* Main</web>
+     <web>mvn jetty:run</web>
   </processTypes>
             <scanIntervalSeconds>10</scanIntervalSeconds>
             <webApp>
