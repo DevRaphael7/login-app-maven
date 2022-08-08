@@ -73,7 +73,7 @@
           <configuration>
             <scanIntervalSeconds>10</scanIntervalSeconds>
             <webApp>
-              <contextPath>/projeto_faculdade</contextPath>
+              <contextPath>/</contextPath>
             </webApp>
             <connectors>
               <connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
@@ -138,11 +138,10 @@
                 <artifactId>heroku-maven-plugin</artifactId>
                 <version>3.0.4</version>
                 <configuration>
-                    <appName>MY_APP</appName>
-                    <processTypes>
-                        <web>mvn jetty:run</web>
-                    </processTypes>
-                </configuration>
+        <processTypes>
+          <web>java $JAVA_OPTS -cp target/classes:target/dependency/* Main</web>
+        </processTypes>
+      </configuration>
             </plugin>
         <plugin>
             <groupId>org.apache.maven.plugins</groupId>
