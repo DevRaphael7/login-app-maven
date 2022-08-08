@@ -10,7 +10,8 @@
 </head>
 <body>
     <%
-        response.sendRedirect("http://localhost:9090/projeto_faculdade/pages/loginPage/login.jsp");
+        String isLocalHost = false ? 'http://localhost:9090/' : 'https://immense-fortress-83540.herokuapp.com/'
+        response.sendRedirect(isLocalHost + "projeto_faculdade/pages/loginPage/login.jsp");
     %>
 </body>
 </html>
