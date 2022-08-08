@@ -104,7 +104,7 @@ var idadeCadastro = document.querySelector("[idadeCadastro]");
 var RegisterPage = /** @class */ (function () {
     function RegisterPage() {
         var _this = this;
-        this.endPoint = false ?
+        this.endPoint = true ?
             'https://login-register-app-node.herokuapp.com/api/register' : 'http://localhost:9000/api/register';
         this.getFormHtml = function () { return _this.formHtml; };
         this.nome = "";
@@ -277,7 +277,7 @@ exports.__esModule = true;
 exports.TokenService = void 0;
 var TokenService = /** @class */ (function () {
     function TokenService() {
-        this.endPoint = false ?
+        this.endPoint = true ?
             'https://login-register-app-node.herokuapp.com/api/login' : 'http://localhost:9000/api/login';
         this.token = "";
     }

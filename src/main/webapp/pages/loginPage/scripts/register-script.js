@@ -49,7 +49,7 @@ var idadeCadastro = document.querySelector("[idadeCadastro]");
 var RegisterPage = /** @class */ (function () {
     function RegisterPage() {
         var _this = this;
-        this.endPoint = false ?
+        this.endPoint = true ?
             'https://login-register-app-node.herokuapp.com/api/register' : 'http://localhost:9000/api/register';
         this.getFormHtml = function () { return _this.formHtml; };
         this.nome = "";

@@ -27,7 +27,7 @@ class RegisterPage {
     private token: TokenService;
     private popup: PopupComponent;
 
-    private endPoint = false ? 
+    private endPoint = true ? 
         'https://login-register-app-node.herokuapp.com/api/register' : 'http://localhost:9000/api/register';
 
     constructor() { 

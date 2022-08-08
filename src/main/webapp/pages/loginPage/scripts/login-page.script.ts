@@ -1,4 +1,4 @@
-import { fetch } from 'cross-fetch';
+// import { fetch } from 'cross-fetch';
 import { User } from '../../../models/user.model';
 import { ResponseApi } from '../../../models/response-api.model';
 import { PopupComponent } from '../../../components/popup/script';
@@ -22,7 +22,7 @@ class LoginPage {
     private spinner: SpinnerComponent
     private popup: PopupComponent
 
-    private urlApi = false ? 
+    private urlApi = true ? 
         'https://login-register-app-node.herokuapp.com/api/loginUser' : 'http://localhost:9000/api/loginUser';
 
     constructor() {

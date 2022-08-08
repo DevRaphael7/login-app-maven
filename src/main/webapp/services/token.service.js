@@ -39,7 +39,7 @@ exports.__esModule = true;
 exports.TokenService = void 0;
 var TokenService = /** @class */ (function () {
     function TokenService() {
-        this.endPoint = false ?
+        this.endPoint = true ?
             'https://login-register-app-node.herokuapp.com/api/login' : 'http://localhost:9000/api/login';
         this.token = "";
     }

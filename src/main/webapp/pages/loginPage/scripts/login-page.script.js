@@ -36,7 +36,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-var cross_fetch_1 = require("cross-fetch");
 var script_1 = require("../../../components/popup/script");
 var token_service_1 = require("../../../services/token.service");
 var script_2 = require("../../../components/spinner-component/script");
@@ -47,7 +46,7 @@ var goToLoginBtn = document.querySelector("[btn-goToLogin]");
 var LoginPage = /** @class */ (function () {
     function LoginPage() {
         var _this = this;
-        this.urlApi = false ?
+        this.urlApi = true ?
             'https://login-register-app-node.herokuapp.com/api/loginUser' : 'http://localhost:9000/api/loginUser';
         this.getNome = function () { return _this.nome; };
         this.getSenha = function () { return _this.senha; };
@@ -111,7 +110,7 @@ var LoginPage = /** @class */ (function () {
                         _b.label = 2;
                     case 2:
                         _b.trys.push([2, 7, , 8]);
-                        return [4 /*yield*/, (0, cross_fetch_1.fetch)(this.urlApi, this.optionsRequest)];
+                        return [4 /*yield*/, fetch(this.urlApi, this.optionsRequest)];
                     case 3:
                         response = _b.sent();
                         return [4 /*yield*/, response.json()];

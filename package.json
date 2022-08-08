@@ -17,6 +17,7 @@
     "uniq": "^1.0.1"
   },
   "devDependencies": {
-    "@types/uniq": "^0.0.27"
+    "@types/uniq": "^0.0.27",
+    "babel-preset-es2015": "^6.24.1"
   }
 }

@@ -3,7 +3,7 @@ import { TokenResponse } from '../models/token-response.model';
 export class TokenService {
 
     private token: string;
-    private endPoint = false ? 
+    private endPoint = true ? 
         'https://login-register-app-node.herokuapp.com/api/login' : 'http://localhost:9000/api/login';
     private optionsRequest: any;
 
